@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New Patient Intake — Triumph Ortho & Spine</title>
+  <meta name="theme-color" content="#0a0e1a" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="portal.css" />
+</head>
+<body class="portal-body">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="portal-header">
+    <div class="portal-header__inner">
+      <a class="portal-brand" href="../">
+        <img src="../assets/logo-icon.svg" alt="Triumph" width="40" height="40" />
+        <span class="portal-brand__text">
+          <span class="portal-brand__name">TRIUMPH</span>
+          <span class="portal-brand__sub">Patient Portal</span>
+        </span>
+      </a>
+      <a class="portal-back" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Exit
+      </a>
+    </div>
+  </header>
+
+  <div class="progress-bar">
+    <div class="progress-bar__inner">
+      <div class="progress-bar__label">
+        <span>Step <strong id="stepCurrent">1</strong> of <span id="stepTotal">6</span></span>
+        <span id="stepName">Getting Started</span>
+      </div>
+      <div class="progress-bar__track">
+        <div class="progress-bar__fill" id="progressFill" style="width: 16%"></div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main" class="portal-main">
+    <div class="portal-container portal-container--form">
+
+      <!-- ============================================================
+           STEP 1 — GATE QUESTIONS
+           ============================================================ -->
+      <section class="step-panel active" data-step="1" data-name="Getting Started">
+        <div class="step-header">
+          <div class="step-header__count">Step 1 of 6</div>
+          <h1 class="step-header__title">A few quick questions</h1>
+          <p class="step-header__desc">These answers help us route your paperwork correctly.</p>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Reason for your visit</h2>
+          <p class="form-section__desc">Is this visit related to an auto accident, on-the-job injury, or something else?</p>
+          <div class="big-choice-group" data-required="reasonType">
+            <label class="big-choice">
+              <input type="radio" name="reasonType" value="general" />
+              <svg class="big-choice__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <span class="big-choice__label">General / Chronic</span>
+              <span class="big-choice__desc">Standard care, no third-party claim</span>
+            </label>
+            <label class="big-choice">
+              <input type="radio" name="reasonType" value="auto" />
+              <svg class="big-choice__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
+              <span class="big-choice__label">Auto Accident</span>
+              <span class="big-choice__desc">Motor vehicle collision (PIP / no-fault)</span>
+            </label>
+            <label class="big-choice">
+              <input type="radio" name="reasonType" value="work" />
+              <svg class="big-choice__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM9 5h6v2H9V5z"/></svg>
+              <span class="big-choice__label">Work Injury</span>
+              <span class="big-choice__desc">Workers' compensation claim</span>
+            </label>
+            <label class="big-choice">
+              <input type="radio" name="reasonType" value="sports" />
+              <svg class="big-choice__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10M12 2a15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0 4 10"/></svg>
+              <span class="big-choice__label">Sports / Activity</span>
+              <span class="big-choice__desc">Athletic injury, no third-party claim</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Payment method</h2>
+          <p class="form-section__desc">How do you plan to pay for your visit?</p>
+          <div class="big-choice-group" data-required="paymentType">
+            <label class="big-choice">
+              <input type="radio" name="paymentType" value="insurance" />
+              <svg class="big-choice__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              <span class="big-choice__label">Insurance</span>
+              <span class="big-choice__desc">Commercial, Medicare, Medicaid</span>
+            </label>
+            <label class="big-choice">
+              <input type="radio" name="paymentType" value="selfpay" />
+              <svg class="big-choice__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span class="big-choice__label">Self-Pay</span>
+              <span class="big-choice__desc">No insurance / paying out of pocket</span>
+            </label>
+          </div>
+          <div class="info-banner conditional" id="gfeNotice" style="margin-top: var(--sp-4);">
+            <svg class="info-banner__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <div>
+              <strong>Good Faith Estimate.</strong> Federal law entitles you to a written estimate of expected charges before your visit. We'll include one at the end for your acknowledgment.
+            </div>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <div class="step-nav__spacer"></div>
+          <button type="button" class="portal-btn portal-btn--primary" data-action="next">
+            Continue
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           STEP 2 — PATIENT INFO + PHOTO ID
+           ============================================================ -->
+      <section class="step-panel" data-step="2" data-name="About You">
+        <div class="step-header">
+          <div class="step-header__count">Step 2 of 6</div>
+          <h1 class="step-header__title">About you</h1>
+          <p class="step-header__desc">Your contact information and a photo ID for verification.</p>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Legal name</h2>
+          <div class="field-row field-row--three">
+            <div class="field">
+              <label class="field__label field__label--required" for="firstName">First name</label>
+              <input type="text" id="firstName" name="firstName" autocomplete="given-name" required />
+              <div class="field__error">Required</div>
+            </div>
+            <div class="field">
+              <label class="field__label" for="middleName">Middle</label>
+              <input type="text" id="middleName" name="middleName" autocomplete="additional-name" />
+            </div>
+            <div class="field">
+              <label class="field__label field__label--required" for="lastName">Last name</label>
+              <input type="text" id="lastName" name="lastName" autocomplete="family-name" required />
+              <div class="field__error">Required</div>
+            </div>
+          </div>
+          <div class="field-row field-row--two">
+            <div class="field">
+              <label class="field__label" for="preferredName">Preferred name / nickname</label>
+              <input type="text" id="preferredName" name="preferredName" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="pronouns">Pronouns</label>
+              <select id="pronouns" name="pronouns">
+                <option value="">Prefer not to say</option>
+                <option value="she/her">She / Her</option>
+                <option value="he/him">He / Him</option>
+                <option value="they/them">They / Them</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Demographics</h2>
+          <div class="field-row field-row--three">
+            <div class="field">
+              <label class="field__label field__label--required" for="dob">Date of birth</label>
+              <input type="date" id="dob" name="dob" required />
+              <div class="field__error">Required</div>
+            </div>
+            <div class="field">
+              <label class="field__label" for="sexAtBirth">Sex at birth</label>
+              <select id="sexAtBirth" name="sexAtBirth">
+                <option value="">—</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="intersex">Intersex</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="genderIdentity">Gender identity</label>
+              <select id="genderIdentity" name="genderIdentity">
+                <option value="">Same as sex at birth</option>
+                <option value="woman">Woman</option>
+                <option value="man">Man</option>
+                <option value="nonbinary">Non-binary</option>
+                <option value="trans-woman">Trans woman</option>
+                <option value="trans-man">Trans man</option>
+                <option value="other">Other</option>
+                <option value="prefer-not">Prefer not to say</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row field-row--two">
+            <div class="field">
+              <label class="field__label" for="maritalStatus">Marital status</label>
+              <select id="maritalStatus" name="maritalStatus">
+                <option value="">—</option>
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="partnered">Partnered</option>
+                <option value="divorced">Divorced</option>
+                <option value="widowed">Widowed</option>
+                <option value="separated">Separated</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="preferredLanguage">Preferred language</label>
+              <input type="text" id="preferredLanguage" name="preferredLanguage" value="English" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Contact information</h2>
+          <div class="field-row field-row--single">
+            <div class="field">
+              <label class="field__label field__label--required" for="address1">Street address</label>
+              <input type="text" id="address1" name="address1" autocomplete="address-line1" required />
+              <div class="field__error">Required</div>
+            </div>
+          </div>
+          <div class="field-row field-row--single">
+            <div class="field">
+              <label class="field__label" for="address2">Apt / suite / unit</label>
+              <input type="text" id="address2" name="address2" autocomplete="address-line2" />
+            </div>
+          </div>
+          <div class="field-row field-row--three">
+            <div class="field">
+              <label class="field__label field__label--required" for="city">City</label>
+              <input type="text" id="city" name="city" autocomplete="address-level2" required />
+              <div class="field__error">Required</div>
+            </div>
+            <div class="field">
+              <label class="field__label field__label--required" for="state">State</label>
+              <input type="text" id="state" name="state" maxlength="2" placeholder="NJ" autocomplete="address-level1" required />
+              <div class="field__error">Required</div>
+            </div>
+            <div class="field">
+              <label class="field__label field__label--required" for="zip">ZIP</label>
+              <input type="text" id="zip" name="zip" inputmode="numeric" maxlength="10" autocomplete="postal-code" required />
+              <div class="field__error">Required</div>
+            </div>
+          </div>
+          <div class="field-row field-row--two">
+            <div class="field">
+              <label class="field__label field__label--required" for="phone">Mobile phone</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" required />
+              <div class="field__error">Required</div>
+            </div>
+            <div class="field">
+              <label class="field__label" for="phoneAlt">Alternate phone</label>
+              <input type="tel" id="phoneAlt" name="phoneAlt" />
+            </div>
+          </div>
+          <div class="field-row field-row--two">
+            <div class="field">
+              <label class="field__label field__label--required" for="email">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" required />
+              <div class="field__error">Required</div>
+            </div>
+            <div class="field">
+              <label class="field__label" for="preferredContact">Preferred contact method</label>
+              <select id="preferredContact" name="preferredContact">
+                <option value="phone">Phone call</option>
+                <option value="text">Text message</option>
+                <option value="email">Email</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Emergency contact</h2>
+          <div class="field-row field-row--three">
+            <div class="field">
+              <label class="field__label" for="ecName">Name</label>
+              <input type="text" id="ecName" name="ecName" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="ecRelation">Relationship</label>
+              <input type="text" id="ecRelation" name="ecRelation" placeholder="Spouse, parent, etc." />
+            </div>
+            <div class="field">
+              <label class="field__label" for="ecPhone">Phone</label>
+              <input type="tel" id="ecPhone" name="ecPhone" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Photo ID</h2>
+          <p class="form-section__desc">Driver's license, passport, or state-issued ID. We use this to confirm your identity at check-in.</p>
+          <label class="upload-zone" data-upload="photoId">
+            <svg class="upload-zone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <div class="upload-zone__title">Take a photo or upload your ID</div>
+            <div class="upload-zone__desc">Tap on mobile to open your camera · PNG, JPG, or PDF · 10 MB max</div>
+            <input type="file" name="photoId" accept="image/*,application/pdf" capture="environment" data-upload-input="photoId" />
+          </label>
+          <div class="upload-preview" data-upload-preview="photoId">
+            <img class="upload-preview__thumb" data-upload-thumb="photoId" alt="" />
+            <div class="upload-preview__info">
+              <div class="upload-preview__name" data-upload-name="photoId"></div>
+              <div class="upload-preview__size" data-upload-size="photoId"></div>
+            </div>
+            <button type="button" class="upload-preview__remove" data-upload-remove="photoId">Remove</button>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="portal-btn portal-btn--ghost" data-action="back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back
+          </button>
+          <button type="button" class="portal-btn portal-btn--primary" data-action="next">
+            Continue
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           STEP 3 — INSURANCE / BILLING  (SKIPPED IF AUTO OR WORK)
+           ============================================================ -->
+      <section class="step-panel" data-step="3" data-name="Insurance & Billing" data-skip-when="reasonType:auto,work">
+        <div class="step-header">
+          <div class="step-header__count">Step 3 of 6</div>
+          <h1 class="step-header__title">Insurance &amp; billing</h1>
+          <p class="step-header__desc">Details about how your visit will be paid.</p>
+        </div>
+
+        <!-- Insurance path -->
+        <div class="conditional" data-show-when="paymentType:insurance">
+          <div class="form-section">
+            <h2 class="form-section__title">Primary insurance</h2>
+            <div class="field-row field-row--two">
+              <div class="field">
+                <label class="field__label" for="ins1Carrier">Insurance company</label>
+                <input type="text" id="ins1Carrier" name="ins1Carrier" placeholder="Aetna, BCBS, Cigna, etc." />
+              </div>
+              <div class="field">
+                <label class="field__label" for="ins1PlanName">Plan name</label>
+                <input type="text" id="ins1PlanName" name="ins1PlanName" />
+              </div>
+            </div>
+            <div class="field-row field-row--two">
+              <div class="field">
+                <label class="field__label" for="ins1Member">Member / Policy ID</label>
+                <input type="text" id="ins1Member" name="ins1Member" />
+              </div>
+              <div class="field">
+                <label class="field__label" for="ins1Group">Group #</label>
+                <input type="text" id="ins1Group" name="ins1Group" />
+              </div>
+            </div>
+            <div class="field-row field-row--two">
+              <div class="field">
+                <label class="field__label" for="ins1Subscriber">Subscriber name (if not you)</label>
+                <input type="text" id="ins1Subscriber" name="ins1Subscriber" />
+              </div>
+              <div class="field">
+                <label class="field__label" for="ins1SubscriberRel">Relationship to subscriber</label>
+                <select id="ins1SubscriberRel" name="ins1SubscriberRel">
+                  <option value="self">Self</option>
+                  <option value="spouse">Spouse</option>
+                  <option value="child">Child</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2 class="form-section__title">Insurance card — front</h2>
+            <label class="upload-zone" data-upload="insFront">
+              <svg class="upload-zone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              <div class="upload-zone__title">Front of your insurance card</div>
+              <div class="upload-zone__desc">Tap on mobile to open your camera</div>
+              <input type="file" name="insFront" accept="image/*" capture="environment" data-upload-input="insFront" />
+            </label>
+            <div class="upload-preview" data-upload-preview="insFront">
+              <img class="upload-preview__thumb" data-upload-thumb="insFront" alt="" />
+              <div class="upload-preview__info">
+                <div class="upload-preview__name" data-upload-name="insFront"></div>
+                <div class="upload-preview__size" data-upload-size="insFront"></div>
+              </div>
+              <button type="button" class="upload-preview__remove" data-upload-remove="insFront">Remove</button>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2 class="form-section__title">Insurance card — back</h2>
+            <label class="upload-zone" data-upload="insBack">
+              <svg class="upload-zone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="14" x2="23" y2="14"/></svg>
+              <div class="upload-zone__title">Back of your insurance card</div>
+              <div class="upload-zone__desc">The side with the customer-service phone number</div>
+              <input type="file" name="insBack" accept="image/*" capture="environment" data-upload-input="insBack" />
+            </label>
+            <div class="upload-preview" data-upload-preview="insBack">
+              <img class="upload-preview__thumb" data-upload-thumb="insBack" alt="" />
+              <div class="upload-preview__info">
+                <div class="upload-preview__name" data-upload-name="insBack"></div>
+                <div class="upload-preview__size" data-upload-size="insBack"></div>
+              </div>
+              <button type="button" class="upload-preview__remove" data-upload-remove="insBack">Remove</button>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2 class="form-section__title">Secondary insurance (optional)</h2>
+            <div class="field-row field-row--two">
+              <div class="field">
+                <label class="field__label" for="ins2Carrier">Insurance company</label>
+                <input type="text" id="ins2Carrier" name="ins2Carrier" />
+              </div>
+              <div class="field">
+                <label class="field__label" for="ins2Member">Member ID</label>
+                <input type="text" id="ins2Member" name="ins2Member" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Self-pay path -->
+        <div class="conditional" data-show-when="paymentType:selfpay">
+          <div class="form-section">
+            <h2 class="form-section__title">Self-pay acknowledgment</h2>
+            <div class="attestation">
+              <div class="attestation__title">You are paying out-of-pocket</div>
+              <div class="attestation__body">
+                We'll provide a written <strong>Good Faith Estimate</strong> of expected charges before your visit, in accordance with the No Surprises Act. Payment is due at time of service unless other arrangements have been made.
+              </div>
+              <label class="choice">
+                <input type="checkbox" name="selfpayAck" data-required="1" />
+                <span>I understand and would like to proceed as a self-pay patient.</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="portal-btn portal-btn--ghost" data-action="back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back
+          </button>
+          <button type="button" class="portal-btn portal-btn--primary" data-action="next">
+            Continue
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           STEP 4 — MEDICAL HISTORY
+           ============================================================ -->
+      <section class="step-panel" data-step="4" data-name="Medical History">
+        <div class="step-header">
+          <div class="step-header__count">Step 4 of 6</div>
+          <h1 class="step-header__title">Medical history</h1>
+          <p class="step-header__desc">Help us understand your symptoms and background.</p>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">What brings you in?</h2>
+          <div class="field field--wide">
+            <label class="field__label field__label--required" for="chiefComplaint">Chief complaint</label>
+            <p class="field__hint">In your own words — what's bothering you most?</p>
+            <textarea id="chiefComplaint" name="chiefComplaint" required placeholder="Example: Sharp lower-back pain that shoots down my right leg, worse after sitting for long periods."></textarea>
+            <div class="field__error">Required</div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Where does it hurt?</h2>
+          <p class="form-section__desc">Check all areas that apply.</p>
+          <div class="choice-group choice-group--grid" data-checkbox-group="painLocations">
+            <label class="choice"><input type="checkbox" name="painLoc" value="Neck" /><span>Neck</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Upper back" /><span>Upper back</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Mid back" /><span>Mid back</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Lower back" /><span>Lower back</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Shoulder (R)" /><span>Right shoulder</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Shoulder (L)" /><span>Left shoulder</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Elbow (R)" /><span>Right elbow</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Elbow (L)" /><span>Left elbow</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Wrist / Hand (R)" /><span>Right wrist / hand</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Wrist / Hand (L)" /><span>Left wrist / hand</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Hip (R)" /><span>Right hip</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Hip (L)" /><span>Left hip</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Knee (R)" /><span>Right knee</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Knee (L)" /><span>Left knee</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Ankle / Foot (R)" /><span>Right ankle / foot</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Ankle / Foot (L)" /><span>Left ankle / foot</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Radiating leg pain" /><span>Radiating leg pain</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Radiating arm pain" /><span>Radiating arm pain</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Numbness/tingling" /><span>Numbness / tingling</span></label>
+            <label class="choice"><input type="checkbox" name="painLoc" value="Weakness" /><span>Weakness</span></label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Pain severity right now</h2>
+          <p class="form-section__desc">0 = no pain, 10 = worst pain imaginable</p>
+          <div class="pain-scale" id="painScale" data-required="painScore">
+            <button type="button" class="pain-scale__btn" data-pain="0">0</button>
+            <button type="button" class="pain-scale__btn" data-pain="1">1</button>
+            <button type="button" class="pain-scale__btn" data-pain="2">2</button>
+            <button type="button" class="pain-scale__btn" data-pain="3">3</button>
+            <button type="button" class="pain-scale__btn" data-pain="4">4</button>
+            <button type="button" class="pain-scale__btn" data-pain="5">5</button>
+            <button type="button" class="pain-scale__btn" data-pain="6">6</button>
+            <button type="button" class="pain-scale__btn" data-pain="7">7</button>
+            <button type="button" class="pain-scale__btn" data-pain="8">8</button>
+            <button type="button" class="pain-scale__btn" data-pain="9">9</button>
+            <button type="button" class="pain-scale__btn" data-pain="10">10</button>
+          </div>
+          <div class="pain-scale__labels">
+            <span>No pain</span><span>Moderate</span><span>Worst pain</span>
+          </div>
+          <input type="hidden" id="painScore" name="painScore" />
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Onset &amp; pattern</h2>
+          <div class="field-row field-row--two">
+            <div class="field">
+              <label class="field__label" for="painOnset">When did this start?</label>
+              <input type="text" id="painOnset" name="painOnset" placeholder="Date or approximate time" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="painCause">What caused it (if known)?</label>
+              <input type="text" id="painCause" name="painCause" placeholder="Injury, lifting, gradual, etc." />
+            </div>
+          </div>
+          <div class="field-row field-row--two">
+            <div class="field">
+              <label class="field__label" for="painWorse">Makes it worse</label>
+              <textarea id="painWorse" name="painWorse" placeholder="Sitting, standing, activities..."></textarea>
+            </div>
+            <div class="field">
+              <label class="field__label" for="painBetter">Makes it better</label>
+              <textarea id="painBetter" name="painBetter" placeholder="Rest, ice, positions..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Treatments already tried</h2>
+          <div class="choice-group choice-group--grid">
+            <label class="choice"><input type="checkbox" name="priorTx" value="Physical therapy" /><span>Physical therapy</span></label>
+            <label class="choice"><input type="checkbox" name="priorTx" value="Chiropractic" /><span>Chiropractic</span></label>
+            <label class="choice"><input type="checkbox" name="priorTx" value="Acupuncture" /><span>Acupuncture</span></label>
+            <label class="choice"><input type="checkbox" name="priorTx" value="Massage" /><span>Massage</span></label>
+            <label class="choice"><input type="checkbox" name="priorTx" value="OTC medications" /><span>OTC medications</span></label>
+            <label class="choice"><input type="checkbox" name="priorTx" value="Prescription pain meds" /><span>Prescription pain meds</span></label>
+            <label class="choice"><input type="checkbox" name="priorTx" value="Injections" /><span>Injections</span></label>
+            <label class="choice"><input type="checkbox" name="priorTx" value="Surgery" /><span>Surgery</span></label>
+            <label class="choice"><input type="checkbox" name="priorTx" value="Imaging (X-ray/MRI/CT)" /><span>Imaging (X-ray/MRI/CT)</span></label>
+            <label class="choice"><input type="checkbox" name="priorTx" value="Home exercises" /><span>Home exercises</span></label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Current medications</h2>
+          <div class="field">
+            <label class="field__label" for="medications">List all prescriptions, OTC drugs, and supplements</label>
+            <p class="field__hint">Include dose and frequency if you know it. Write "none" if none.</p>
+            <textarea id="medications" name="medications" placeholder="Ex: Ibuprofen 400mg twice daily, Lisinopril 10mg once daily"></textarea>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Allergies</h2>
+          <div class="field">
+            <label class="field__label" for="allergies">Drug, latex, or other allergies</label>
+            <textarea id="allergies" name="allergies" placeholder="Ex: Penicillin (rash), latex (hives). Write 'none known' if none."></textarea>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Past medical history</h2>
+          <p class="form-section__desc">Check any conditions you have or have had.</p>
+          <div class="choice-group choice-group--grid">
+            <label class="choice"><input type="checkbox" name="pmh" value="High blood pressure" /><span>High blood pressure</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Diabetes" /><span>Diabetes</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Heart disease" /><span>Heart disease</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Stroke" /><span>Stroke</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Cancer" /><span>Cancer</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Asthma / COPD" /><span>Asthma / COPD</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Kidney disease" /><span>Kidney disease</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Liver disease" /><span>Liver disease</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Blood clots / DVT" /><span>Blood clots / DVT</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Bleeding disorder" /><span>Bleeding disorder</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Autoimmune disease" /><span>Autoimmune disease</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Depression / Anxiety" /><span>Depression / Anxiety</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Osteoporosis" /><span>Osteoporosis</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Arthritis" /><span>Arthritis</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Thyroid disease" /><span>Thyroid disease</span></label>
+            <label class="choice"><input type="checkbox" name="pmh" value="Seizures" /><span>Seizures</span></label>
+          </div>
+          <div class="field field--wide" style="margin-top: var(--sp-4);">
+            <label class="field__label" for="pmhOther">Other conditions (not listed above)</label>
+            <textarea id="pmhOther" name="pmhOther"></textarea>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Past surgeries</h2>
+          <div class="field">
+            <label class="field__label" for="surgicalHistory">List surgeries with approximate dates</label>
+            <textarea id="surgicalHistory" name="surgicalHistory" placeholder="Ex: L5-S1 fusion (2019), rotator cuff repair R (2015)"></textarea>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Social history</h2>
+          <div class="field-row field-row--three">
+            <div class="field">
+              <label class="field__label" for="tobacco">Tobacco use</label>
+              <select id="tobacco" name="tobacco">
+                <option value="never">Never</option>
+                <option value="former">Former</option>
+                <option value="current">Current</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="alcohol">Alcohol use</label>
+              <select id="alcohol" name="alcohol">
+                <option value="none">None</option>
+                <option value="occasional">Occasional</option>
+                <option value="moderate">Moderate (1-2 drinks / day)</option>
+                <option value="heavy">Heavy</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="recreational">Recreational drug use</label>
+              <select id="recreational" name="recreational">
+                <option value="none">None</option>
+                <option value="marijuana">Marijuana only</option>
+                <option value="other">Other</option>
+                <option value="prefer-not">Prefer not to say</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row field-row--two">
+            <div class="field">
+              <label class="field__label" for="occupation">Occupation</label>
+              <input type="text" id="occupation" name="occupation" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="exercise">Exercise frequency</label>
+              <select id="exercise" name="exercise">
+                <option value="none">None</option>
+                <option value="occasional">Occasional</option>
+                <option value="regular">Regular (2-3x / week)</option>
+                <option value="daily">Daily</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Family medical history</h2>
+          <p class="form-section__desc">Any of these run in your immediate family?</p>
+          <div class="choice-group choice-group--grid">
+            <label class="choice"><input type="checkbox" name="famhx" value="Heart disease" /><span>Heart disease</span></label>
+            <label class="choice"><input type="checkbox" name="famhx" value="Stroke" /><span>Stroke</span></label>
+            <label class="choice"><input type="checkbox" name="famhx" value="Cancer" /><span>Cancer</span></label>
+            <label class="choice"><input type="checkbox" name="famhx" value="Diabetes" /><span>Diabetes</span></label>
+            <label class="choice"><input type="checkbox" name="famhx" value="Autoimmune" /><span>Autoimmune</span></label>
+            <label class="choice"><input type="checkbox" name="famhx" value="Bleeding disorder" /><span>Bleeding disorder</span></label>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="portal-btn portal-btn--ghost" data-action="back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back
+          </button>
+          <button type="button" class="portal-btn portal-btn--primary" data-action="next">
+            Continue
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           STEP 5 — CONSENTS + SIGNATURE
+           ============================================================ -->
+      <section class="step-panel" data-step="5" data-name="Consents">
+        <div class="step-header">
+          <div class="step-header__count">Step 5 of 6</div>
+          <h1 class="step-header__title">Consents &amp; signature</h1>
+          <p class="step-header__desc">Please review each attestation, then sign at the bottom.</p>
+        </div>
+
+        <div class="form-section">
+          <div class="attestation">
+            <div class="attestation__title">Notice of Privacy Practices (HIPAA)</div>
+            <div class="attestation__body">
+              I acknowledge I have received or been offered a copy of Triumph Ortho &amp; Spine's <a href="../legal/hipaa-notice/" target="_blank" rel="noopener">Notice of Privacy Practices</a>, which describes how my protected health information (PHI) may be used and disclosed.
+            </div>
+            <label class="choice">
+              <input type="checkbox" name="hipaaAck" data-required="1" />
+              <span>I acknowledge receipt of the Notice of Privacy Practices.</span>
+            </label>
+          </div>
+
+          <div class="attestation">
+            <div class="attestation__title">Consent to Treatment</div>
+            <div class="attestation__body">
+              I voluntarily consent to receive medical care, including examination, diagnostic testing, and treatment recommended by Triumph Ortho &amp; Spine and its physicians. I understand no guarantees have been made about the results of my care. I may withdraw consent at any time.
+            </div>
+            <label class="choice">
+              <input type="checkbox" name="tosConsent" data-required="1" />
+              <span>I consent to treatment.</span>
+            </label>
+          </div>
+
+          <div class="attestation">
+            <div class="attestation__title">Financial Responsibility</div>
+            <div class="attestation__body">
+              I understand I am financially responsible for all charges for services rendered, regardless of insurance coverage. Any co-pays, deductibles, or non-covered charges are my responsibility. If my insurance denies payment, I agree to pay the balance.
+            </div>
+            <label class="choice">
+              <input type="checkbox" name="financialAck" data-required="1" />
+              <span>I accept financial responsibility.</span>
+            </label>
+          </div>
+
+          <div class="attestation">
+            <div class="attestation__title">Communications Consent</div>
+            <div class="attestation__body">
+              I authorize Triumph Ortho &amp; Spine to contact me about appointments, care, and billing via phone, text message, and email at the addresses provided.
+            </div>
+            <label class="choice">
+              <input type="checkbox" name="commsConsent" data-required="1" />
+              <span>I consent to contact by phone, text, and email.</span>
+            </label>
+          </div>
+
+          <!-- Good Faith Estimate — self-pay only -->
+          <div class="conditional" data-show-when="paymentType:selfpay">
+            <div class="attestation" style="border-color: var(--border-gold);">
+              <div class="attestation__title">Good Faith Estimate (No Surprises Act)</div>
+              <div class="attestation__body">
+                As a self-pay patient, I am entitled to a <strong>Good Faith Estimate</strong> of expected charges from Triumph Ortho &amp; Spine at least 3 business days before scheduled services. I understand:
+                <ul>
+                  <li>The estimate will reflect the reasonably expected charges for scheduled or requested items and services.</li>
+                  <li>If I receive a bill that is <strong>$400 or more above</strong> the Good Faith Estimate, I may dispute the bill through the federal Patient-Provider Dispute Resolution process.</li>
+                  <li>Additional services identified during my visit may not be reflected in the initial estimate.</li>
+                </ul>
+              </div>
+              <label class="choice">
+                <input type="checkbox" name="gfeAck" data-required-when="paymentType:selfpay" />
+                <span>I acknowledge my right to receive a Good Faith Estimate.</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Auto / Work injury — third-party disclosure -->
+          <div class="conditional" data-show-when="reasonType:auto,work">
+            <div class="attestation" style="border-color: var(--border-gold);">
+              <div class="attestation__title">Third-Party Billing Authorization</div>
+              <div class="attestation__body">
+                Because my visit is related to an <strong>auto accident</strong> or <strong>work-related injury</strong>, I authorize Triumph Ortho &amp; Spine to bill and communicate with my auto insurance carrier, PIP carrier, workers' compensation carrier, and/or attorney regarding my care, and to release records as reasonably necessary for that billing.
+              </div>
+              <label class="choice">
+                <input type="checkbox" name="thirdPartyAck" data-required-when="reasonType:auto,work" />
+                <span>I authorize third-party billing and records release.</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Signature</h2>
+          <p class="form-section__desc">Sign inside the box with your finger, stylus, or mouse. Your signature will be embedded in the completed PDF.</p>
+          <div class="sig-wrapper">
+            <canvas class="sig-canvas" id="sigCanvas"></canvas>
+            <div class="sig-placeholder" id="sigPlaceholder">Sign here</div>
+          </div>
+          <div class="sig-controls">
+            <small>By signing, I attest the information I have provided is accurate to the best of my knowledge.</small>
+            <button type="button" class="sig-clear" id="sigClear">Clear</button>
+          </div>
+          <div class="field-row field-row--two" style="margin-top: var(--sp-4);">
+            <div class="field">
+              <label class="field__label field__label--required" for="signName">Print your name</label>
+              <input type="text" id="signName" name="signName" required />
+              <div class="field__error">Required</div>
+            </div>
+            <div class="field">
+              <label class="field__label field__label--required" for="signDate">Date</label>
+              <input type="date" id="signDate" name="signDate" required />
+              <div class="field__error">Required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="portal-btn portal-btn--ghost" data-action="back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back
+          </button>
+          <button type="button" class="portal-btn portal-btn--primary" data-action="next">
+            Review
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           STEP 6 — REVIEW + PDF DOWNLOAD
+           ============================================================ -->
+      <section class="step-panel" data-step="6" data-name="Review & Submit">
+        <div class="step-header">
+          <div class="step-header__count">Step 6 of 6</div>
+          <h1 class="step-header__title">Review &amp; send</h1>
+          <p class="step-header__desc">Confirm everything looks right, then download your completed PDF and email it to us.</p>
+        </div>
+
+        <div id="reviewContent">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="warn-banner" style="margin-top: var(--sp-5);">
+          <svg class="warn-banner__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div>
+            <strong>Please double-check your information above.</strong> Once you download and email your PDF, it goes to <a href="mailto:info@triumphorthospine.com">info@triumphorthospine.com</a>. Our team will confirm receipt before your visit.
+          </div>
+        </div>
+
+        <div class="portal-cta-block" style="margin-top: var(--sp-5);">
+          <h3 style="font-family: 'Cinzel', serif; font-size: 22px; margin-bottom: var(--sp-3);">Two steps to finish</h3>
+          <ol style="list-style: none; padding: 0; text-align: left; max-width: 460px; margin: 0 auto var(--sp-5);">
+            <li style="display: flex; align-items: flex-start; gap: var(--sp-3); margin-bottom: var(--sp-3);">
+              <span style="background: var(--gold); color: #0a0e1a; width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">1</span>
+              <span><strong>Download your PDF</strong> — it saves to your device.</span>
+            </li>
+            <li style="display: flex; align-items: flex-start; gap: var(--sp-3);">
+              <span style="background: var(--gold); color: #0a0e1a; width: 28px; height: 28px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">2</span>
+              <span><strong>Attach the PDF and send it</strong> to <code style="background: var(--bg-elevated); padding: 2px 6px; border-radius: 4px; font-size: 13px;">info@triumphorthospine.com</code>.</span>
+            </li>
+          </ol>
+
+          <button type="button" class="portal-btn portal-btn--primary portal-btn--lg" id="downloadPdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download completed PDF
+          </button>
+
+          <div id="postDownload" style="display: none; margin-top: var(--sp-5);">
+            <a class="portal-btn portal-btn--ghost portal-btn--lg" id="emailLink" href="#">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Open email to send
+            </a>
+            <p class="portal-cta-fineprint" style="margin-top: var(--sp-3);">
+              Your email client will open with the address and subject filled in — <strong>attach the PDF you just downloaded</strong> and send.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="portal-btn portal-btn--ghost" data-action="back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to edit
+          </button>
+          <button type="button" class="portal-btn portal-btn--danger" id="startOver">
+            Start over
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="save-indicator" id="saveIndicator">Progress saved</div>
+
+  <footer class="portal-footer">
+    <div class="portal-container">
+      <p>&copy; <span id="year"></span> Triumph Ortho &amp; Spine, LLC · Nothing is transmitted from this page until you email the PDF yourself.</p>
+    </div>
+  </footer>
+
+  <!-- jsPDF for client-side PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.1/jspdf.plugin.autotable.min.js"></script>
+
+  <script src="intake.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Spartan warrior with glowing spine (placeholder for hero image)">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A2347"/>
+      <stop offset="100%" stop-color="#051628"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#DDBC72"/>
+      <stop offset="100%" stop-color="#A0822F"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="400" height="500" fill="url(#bgGrad)"/>
+  <!-- Helmet silhouette -->
+  <path d="M 140 90 Q 130 60 160 50 L 240 50 Q 270 60 260 90 L 280 100 L 280 150 L 260 145 Q 250 175 200 175 Q 150 175 140 145 L 120 150 L 120 100 Z"
+        fill="#0F2A52" stroke="#C9A24A" stroke-width="1" opacity="0.85"/>
+  <!-- Helmet crest -->
+  <path d="M 175 50 Q 200 20 225 50 L 220 30 L 195 25 L 175 50 Z" fill="#0F2A52" opacity="0.9"/>
+  <!-- Shoulder/armor lines -->
+  <path d="M 110 200 Q 200 220 290 200 L 280 280 L 120 280 Z" fill="#0F2A52" stroke="#1E5A92" stroke-width="0.5" opacity="0.7"/>
+  <!-- Glowing spine -->
+  <g filter="url(#glow)">
+    <ellipse cx="200" cy="200" rx="6" ry="8" fill="url(#goldGlow)"/>
+    <ellipse cx="200" cy="218" rx="6" ry="8" fill="url(#goldGlow)"/>
+    <ellipse cx="200" cy="236" rx="6" ry="8" fill="url(#goldGlow)"/>
+    <ellipse cx="200" cy="254" rx="6" ry="8" fill="url(#goldGlow)"/>
+    <ellipse cx="200" cy="272" rx="6" ry="8" fill="url(#goldGlow)"/>
+    <ellipse cx="200" cy="290" rx="7" ry="9" fill="url(#goldGlow)"/>
+    <ellipse cx="200" cy="310" rx="7" ry="9" fill="url(#goldGlow)"/>
+    <ellipse cx="200" cy="330" rx="7" ry="9" fill="url(#goldGlow)"/>
+    <ellipse cx="200" cy="350" rx="8" ry="10" fill="url(#goldGlow)"/>
+    <ellipse cx="200" cy="372" rx="8" ry="10" fill="url(#goldGlow)"/>
+  </g>
+  <!-- Glow halo around spine -->
+  <ellipse cx="200" cy="285" rx="80" ry="180" fill="url(#goldGlow)" opacity="0.06"/>
+
+  <!-- Caption -->
+  <text x="200" y="448" text-anchor="middle"
+        font-family="Cinzel, Georgia, serif"
+        font-size="11"
+        letter-spacing="3"
+        fill="#C9A24A"
+        font-style="italic">PLACEHOLDER · SPARTAN HERO IMAGE</text>
+  <text x="200" y="468" text-anchor="middle"
+        font-family="Montserrat, sans-serif"
+        font-size="9"
+        letter-spacing="2"
+        fill="rgba(255,255,255,0.4)">Replace assets/hero-spartan.jpg with brand-issued image</text>
+</svg>

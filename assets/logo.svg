@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 320" role="img" aria-label="Triumph Ortho and Spine Pain Management">
+
+<rect width="1400" height="320" fill="#071B3A"/>
+
+<!-- TRIUMPH — centered, large. T-mark removed per request. -->
+<text x="700" y="135" text-anchor="middle" fill="#F4F1E8" font-family="Cinzel, Trajan Pro, Georgia, serif" font-weight="700" font-size="158" letter-spacing="22">TRIUMPH</text>
+
+<!-- ORTHO & SPINE — gold, centered, flanking rules -->
+<line x1="170" y1="180" x2="385" y2="180" stroke="#C9A24A" stroke-width="4"/>
+<text x="700" y="208" text-anchor="middle" fill="#C9A24A" font-family="Montserrat, Arial, sans-serif" font-weight="600" font-size="58" letter-spacing="18">ORTHO &amp; SPINE</text>
+<line x1="1015" y1="180" x2="1230" y2="180" stroke="#C9A24A" stroke-width="4"/>
+
+<!-- PAIN MANAGEMENT — ivory, centered, flanking rules -->
+<line x1="170" y1="265" x2="320" y2="265" stroke="#C9A24A" stroke-width="3"/>
+<text x="700" y="290" text-anchor="middle" fill="#F4F1E8" font-family="Cinzel, Trajan Pro, Georgia, serif" font-weight="500" font-size="52" letter-spacing="15">PAIN MANAGEMENT</text>
+<line x1="1080" y1="265" x2="1230" y2="265" stroke="#C9A24A" stroke-width="3"/>
+</svg>

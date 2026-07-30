@@ -1,0 +1,57 @@
+# Netlify configuration for Triumph Ortho & Spine
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Static site — no build step needed. Publish the website folder root.
+  publish = "."
+  # No build command (pure static HTML/CSS/JS).
+  command = ""
+
+# Security headers — reasonable defaults for a healthcare marketing site.
+# IMPORTANT: When PHI forms are added later, Netlify is NOT a HIPAA Business Associate.
+# Move any PHI-collecting forms to a HIPAA-eligible host with a signed BAA.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # CSP intentionally permissive for v1 (Google Fonts). Tighten before production launch.
+    # cdnjs.cloudflare.com allowlisted for jsPDF used by the patient portal.
+    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+
+# Long-cache static assets, short-cache HTML so edits propagate fast.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Clean URLs — let users hit /services/pain-management instead of .html
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = true
+
+# 404 fallback
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

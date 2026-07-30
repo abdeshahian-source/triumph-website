@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Restore and renew">
+  <!-- Circular renewal arrow -->
+  <path d="M27 16 a11 11 0 1 1 -3.2 -7.8"/>
+  <polyline points="22 4 24 9 19 11"/>
+  <!-- Center sprout/healing dot -->
+  <circle cx="16" cy="16" r="2" fill="currentColor"/>
+</svg>
