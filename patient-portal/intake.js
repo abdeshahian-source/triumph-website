@@ -9,6 +9,15 @@
   'use strict';
 
   // ============================================================
+  // CONFIG
+  // ============================================================
+  // Google Apps Script Web App URL that receives intake PDFs and emails
+  // them to info@triumphorthospine.com. Runs inside Triumph's Google
+  // Workspace (BAA-covered). See apps-script/Code.gs.
+  // Leave empty ("") to disable auto-send and use manual email only.
+  const APPS_SCRIPT_URL = "";
+
+  // ============================================================
   // STATE
   // ============================================================
   const LS_KEY = 'triumph_intake_v1';
@@ -1060,13 +1069,65 @@
     const fname = `Triumph_Intake_${safe(d.lastName)}_${safe(d.firstName)}_${new Date().toISOString().slice(0, 10)}.pdf`;
     doc.save(fname);
 
-    // Show email helper
+    // Show email helper (manual fallback ALWAYS available)
     $('#postDownload').style.display = 'block';
     const subject = encodeURIComponent(`New Patient Intake — ${patientName}`);
     const body = encodeURIComponent(
       `Hello Triumph team,\n\nPlease find attached my completed new-patient intake form.\n\nName: ${patientName}\nDOB: ${d.dob || ''}\nPhone: ${d.phone || ''}\n\nThank you.`
     );
     $('#emailLink').href = `mailto:info@triumphorthospine.com?subject=${subject}&body=${body}`;
+
+    // Auto-send to Triumph via Apps Script webhook (if configured)
+    if (APPS_SCRIPT_URL) {
+      const pdfBase64 = doc.output('datauristring').split(',')[1];
+      autoSend({
+        patientName: patientName,
+        patientDob:  d.dob || '',
+        patientPhone: d.phone || '',
+        patientEmail: d.email || '',
+        filename: fname,
+        pdfBase64: pdfBase64,
+      });
+    }
+  }
+
+  // ============================================================
+  // AUTO-SEND TO TRIUMPH (Google Apps Script webhook)
+  // ============================================================
+  function autoSend(payload) {
+    const statusEl = $('#autoSendStatus');
+    if (!statusEl) return;
+    statusEl.style.display = 'block';
+    statusEl.className = 'autosend autosend--sending';
+    statusEl.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" class="autosend__spin"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>' +
+      '<span>Sending your intake to Triumph&hellip;</span>';
+
+    // Use text/plain to avoid CORS preflight; Apps Script parses JSON server-side
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+    })
+      .then(r => r.json().catch(() => ({ ok: false, error: 'Bad response' })))
+      .then(data => {
+        if (data && data.ok) {
+          statusEl.className = 'autosend autosend--ok';
+          statusEl.innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>' +
+            '<div><strong>Sent to Triumph.</strong> Your PDF is on its way to <em>info@triumphorthospine.com</em>. The download above is your copy.</div>';
+        } else {
+          throw new Error(data && data.error ? data.error : 'Send failed');
+        }
+      })
+      .catch(err => {
+        console.warn('Auto-send failed:', err);
+        statusEl.className = 'autosend autosend--fail';
+        statusEl.innerHTML =
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
+          '<div><strong>Auto-send didn\'t go through.</strong> No worries — please tap <em>Open email to send</em> below and attach the PDF that just downloaded.</div>';
+      });
   }
 
   // Fit-to-width image helper. Returns the height actually placed on the PDF.

@@ -907,6 +907,44 @@ button { font-family: inherit; cursor: pointer; }
   margin-bottom: var(--sp-2);
 }
 
+/* Auto-send status */
+.autosend {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-radius: var(--radius-md);
+  margin-top: var(--sp-4);
+  font-size: 14px;
+  line-height: 1.5;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-panel);
+}
+.autosend svg { flex-shrink: 0; margin-top: 2px; }
+.autosend--sending {
+  color: var(--text-secondary);
+  border-color: var(--border-strong);
+}
+.autosend--ok {
+  color: var(--text-primary);
+  border-color: rgba(76, 175, 124, 0.55);
+  background: rgba(76, 175, 124, 0.12);
+}
+.autosend--ok svg { color: var(--success); }
+.autosend--fail {
+  color: var(--text-primary);
+  border-color: var(--border-gold);
+  background: rgba(201, 162, 74, 0.08);
+}
+.autosend--fail svg { color: var(--gold); }
+.autosend strong { color: var(--text-primary); }
+.autosend em { color: var(--gold); font-style: normal; }
+.autosend__spin { animation: autosend-spin 1.2s linear infinite; }
+@keyframes autosend-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 /* Save indicator */
 .save-indicator {
   position: fixed;
