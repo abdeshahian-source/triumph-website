@@ -259,6 +259,32 @@
     state.currentStep = num;
     updateProgress();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Signature canvas requires a proper size AFTER its step is visible.
+    // On DOMContentLoaded the canvas is display:none → rect.width = 0 → canvas dead.
+    // Re-init the moment step 5 becomes active.
+    if (num === 5 && sigCanvas) {
+      requestAnimationFrame(() => {
+        const savedDataUrl = state.signature;
+        resizeSigCanvas();
+        sigCtx = sigCanvas.getContext('2d');
+        sigCtx.strokeStyle = '#0a0e1a';
+        sigCtx.lineWidth = 2;
+        sigCtx.lineJoin = 'round';
+        sigCtx.lineCap = 'round';
+        if (savedDataUrl) {
+          const img = new Image();
+          img.onload = () => {
+            sigCtx.drawImage(img, 0, 0, sigCanvas.width, sigCanvas.height);
+            sigDirty = true;
+            $('#sigPlaceholder').classList.add('hidden');
+          };
+          img.src = savedDataUrl;
+        } else {
+          $('#sigPlaceholder').classList.remove('hidden');
+        }
+      });
+    }
   }
 
   function updateProgress() {
@@ -736,6 +762,24 @@
   // PDF GENERATION
   // ============================================================
   function generatePdf() {
+    try {
+      _generatePdf();
+    } catch (err) {
+      console.error('PDF generation failed:', err);
+      alert('There was an issue generating your PDF: ' + err.message + '\n\nIf you drew a signature, try clearing it and signing again, then click Download.');
+    }
+  }
+
+  // Basic sanity check: does this data URL look like a real image?
+  function isValidImageDataUrl(url) {
+    if (!url || typeof url !== 'string') return false;
+    if (!url.startsWith('data:image/')) return false;
+    // A blank/corrupt canvas often produces a very short data URL
+    if (url.length < 200) return false;
+    return true;
+  }
+
+  function _generatePdf() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: 'pt', format: 'letter' });
     const d = state.data;
@@ -862,10 +906,10 @@
     spacer();
 
     // Photo ID image
-    if (state.uploads.photoId && state.uploads.photoId.type && state.uploads.photoId.type.startsWith('image/')) {
+    if (state.uploads.photoId && isValidImageDataUrl(state.uploads.photoId.dataUrl)) {
       sectionHeader('Photo ID');
-      addImage(doc, state.uploads.photoId.dataUrl, M, y, 280);
-      y += imageHeight(state.uploads.photoId.dataUrl, 280) + 18;
+      const photoH = addImage(doc, state.uploads.photoId.dataUrl, M, y, 280);
+      y += photoH + 18;
     } else if (state.uploads.photoId) {
       kv('Photo ID', state.uploads.photoId.name + ' (non-image, view separately)');
     }
@@ -887,15 +931,15 @@
         }
         spacer();
 
-        if (state.uploads.insFront) {
+        if (state.uploads.insFront && isValidImageDataUrl(state.uploads.insFront.dataUrl)) {
           sectionHeader('Insurance Card — Front');
-          addImage(doc, state.uploads.insFront.dataUrl, M, y, 380);
-          y += imageHeight(state.uploads.insFront.dataUrl, 380) + 18;
+          const h1 = addImage(doc, state.uploads.insFront.dataUrl, M, y, 380);
+          y += h1 + 18;
         }
-        if (state.uploads.insBack) {
+        if (state.uploads.insBack && isValidImageDataUrl(state.uploads.insBack.dataUrl)) {
           sectionHeader('Insurance Card — Back');
-          addImage(doc, state.uploads.insBack.dataUrl, M, y, 380);
-          y += imageHeight(state.uploads.insBack.dataUrl, 380) + 18;
+          const h2 = addImage(doc, state.uploads.insBack.dataUrl, M, y, 380);
+          y += h2 + 18;
         }
       } else if (d.paymentType === 'selfpay') {
         sectionHeader('Billing — Self Pay');
@@ -968,7 +1012,7 @@
     // Signature block
     ensureSpace(140);
     sectionHeader('Patient Signature');
-    if (state.signature) {
+    if (isValidImageDataUrl(state.signature)) {
       doc.addImage(state.signature, 'PNG', M, y, 220, 70);
     } else {
       doc.setDrawColor(180, 180, 180);
@@ -1025,20 +1069,19 @@
     $('#emailLink').href = `mailto:info@triumphorthospine.com?subject=${subject}&body=${body}`;
   }
 
-  // Fit-to-width image helper
+  // Fit-to-width image helper. Returns the height actually placed on the PDF.
   function addImage(doc, dataUrl, x, y, targetW) {
-    const props = doc.getImageProperties(dataUrl);
-    const ratio = props.height / props.width;
-    doc.addImage(dataUrl, x, y, targetW, targetW * ratio);
-  }
-  function imageHeight(dataUrl, targetW) {
-    // Peek image ratio via a temp Image
     try {
-      const img = new Image();
-      img.src = dataUrl;
-      if (img.complete && img.width) return targetW * (img.height / img.width);
-    } catch (e) {}
-    return targetW * 0.6; // fallback
+      const props = doc.getImageProperties(dataUrl);
+      const ratio = props.height / props.width;
+      const h = targetW * ratio;
+      const fmt = (props.fileType || 'JPEG').toUpperCase();
+      doc.addImage(dataUrl, fmt, x, y, targetW, h);
+      return h;
+    } catch (e) {
+      console.warn('Skipped image (bad data):', e.message);
+      return 0;
+    }
   }
 
 })();
