@@ -196,6 +196,14 @@ button { font-family: inherit; cursor: pointer; }
   background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-panel) 100%);
   margin-bottom: var(--sp-6);
 }
+.portal-card--insurance {
+  display: flex;
+  gap: var(--sp-5);
+  align-items: flex-start;
+  border-color: rgba(13, 59, 115, 0.55);
+  background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-panel) 100%);
+  margin-bottom: var(--sp-6);
+}
 .privacy-icon {
   color: var(--gold);
   flex-shrink: 0;
