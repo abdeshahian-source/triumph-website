@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Triumph Ortho &amp; Spine — Built for the people who won't accept downtime</title>
-  <meta name="description" content="Precision orthopedic, interventional spine, and pain medicine for patients who refuse to slow down. Four locations: Lawrence Township NJ, Wilkes-Barre PA, Levittown PA, Miami FL." />
-  <meta name="theme-color" content="#0a0e1a" />
+  <meta name="description" content="Precision orthopedic, interventional spine, and pain medicine for patients who refuse to slow down. Five locations: Lawrence Township NJ, Wilkes-Barre PA, Levittown PA, Narberth PA, Miami FL." />
+  <meta name="theme-color" content="#fbf7ee" />
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
@@ -21,8 +21,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" />
 
   <!-- Schema.org / structured data -->
   <script type="application/ld+json">
@@ -31,7 +30,7 @@
     "@type": "MedicalOrganization",
     "name": "Triumph Ortho & Spine",
     "alternateName": "Triumph Ortho & Spine, LLC",
-    "description": "Orthopedic, interventional spine, and pain management practice with four locations across New Jersey, Pennsylvania, and Florida.",
+    "description": "Orthopedic, interventional spine, and pain management practice with five locations across New Jersey, Pennsylvania, and Florida.",
     "url": "https://triumphorthospine.com",
     "telephone": "+1-877-215-7246",
     "email": "info@triumphorthospine.com",
@@ -65,15 +64,421 @@
         "address": {"@type": "PostalAddress", "streetAddress": "2999 NE 191st St, Suite 300", "addressLocality": "Miami", "addressRegion": "FL", "postalCode": "33180", "addressCountry": "US"},
         "telephone": "+1-877-215-7246",
         "areaServed": "Miami-Dade County"
+      },
+      {
+        "@type": "MedicalClinic",
+        "name": "Triumph Ortho & Spine — Narberth",
+        "address": {"@type": "PostalAddress", "streetAddress": "124 N Narberth Ave", "addressLocality": "Narberth", "addressRegion": "PA", "postalCode": "19072", "addressCountry": "US"},
+        "telephone": "+1-877-215-7246",
+        "areaServed": "Montgomery County"
       }
     ]
   }
   </script>
+
+  <style>
+    /* ============================================================
+       TRIUMPH ORTHO & SPINE — LIGHT THEME
+       Warm ivory + deep navy + burnished gold accent.
+       ============================================================ */
+    :root{
+      --bg:            #fbf7ee;   /* warm ivory */
+      --bg-elevated:   #ffffff;
+      --bg-panel:      #f4ede0;   /* cream */
+      --bg-navy:       #0d2340;   /* deep navy for dark sections */
+      --navy:          #0d2340;
+      --navy-soft:     #1a3560;
+      --gold:          #b58540;   /* burnished, luxurious gold */
+      --gold-bright:   #c99a52;
+      --gold-glow:     rgba(181,133,64,0.15);
+
+      --text-primary:  #14213d;   /* deep navy */
+      --text-secondary:#3d4d6b;
+      --text-tertiary: #6b7690;
+      --text-quiet:    #8892a8;
+      --text-on-navy:  #f5efe1;
+
+      --border-subtle: rgba(20,33,61,0.10);
+      --border-strong: rgba(20,33,61,0.20);
+      --border-gold:   rgba(181,133,64,0.55);
+
+      --shadow-sm:     0 2px 8px rgba(20,33,61,0.06);
+      --shadow-md:     0 8px 24px rgba(20,33,61,0.08);
+      --shadow-lg:     0 20px 48px rgba(20,33,61,0.10);
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+    }
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html{ scroll-behavior:smooth; background:var(--bg); }
+    body{
+      font-family:'Inter','Montserrat',-apple-system,sans-serif;
+      background:var(--bg);
+      color:var(--text-primary);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    img,svg{ display:block; max-width:100%; }
+    button{ font-family:inherit; cursor:pointer; }
+
+    .container{ width:100%; max-width:1280px; margin:0 auto; padding:0 28px; }
+
+    /* Accessibility skip link */
+    .skip-link{
+      position:absolute; left:-9999px; top:0; z-index:1000;
+      background:var(--navy); color:var(--text-on-navy);
+      padding:12px 20px; font-size:14px; font-weight:600;
+      border-radius:0 0 var(--radius-sm) 0;
+    }
+    .skip-link:focus{ left:0; outline:2px solid var(--gold); outline-offset:2px; }
+
+    /* Utility bar — cream, not black */
+    .utility-bar{
+      background:#f4ede0;
+      border-bottom:1px solid var(--border-subtle);
+      font-size:12px; color:var(--text-tertiary);
+    }
+    .utility-bar__inner{
+      max-width:1280px; margin:0 auto; padding:10px 28px;
+      display:flex; justify-content:space-between; align-items:center; gap:16px;
+    }
+    .utility-bar__item{
+      display:inline-flex; align-items:center; gap:6px; letter-spacing:0.3px;
+    }
+    .utility-bar__icon{ width:13px; height:13px; stroke:var(--gold); }
+    .utility-bar__right{ display:flex; gap:24px; }
+
+    /* Header */
+    .site-header{
+      background:var(--bg);
+      border-bottom:1px solid var(--border-subtle);
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:blur(6px);
+    }
+    .site-header__inner{
+      max-width:1280px; margin:0 auto; padding:18px 28px;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .brand-text__main{
+      font-family:'Cinzel',serif; font-weight:700; letter-spacing:3px;
+      font-size:22px; color:var(--navy);
+    }
+    .brand-text__sub{
+      font-family:'Montserrat',sans-serif; font-weight:500; letter-spacing:4px;
+      font-size:10px; color:var(--gold); margin-top:2px;
+    }
+    .main-nav__list{
+      list-style:none; display:flex; align-items:center; gap:28px;
+    }
+    .main-nav__link{
+      font-size:14px; font-weight:500; color:var(--text-secondary);
+      letter-spacing:0.4px; transition:color 150ms ease;
+      padding:6px 0; border-bottom:2px solid transparent;
+    }
+    .main-nav__link:hover{ color:var(--navy); border-bottom-color:var(--gold); }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:12px 22px; font-size:14px; font-weight:600; letter-spacing:0.8px;
+      border-radius:999px; border:1.5px solid transparent;
+      transition:all 180ms ease; text-transform:uppercase;
+    }
+    .btn-large{ padding:16px 30px; font-size:14px; }
+    .btn-primary{
+      background:var(--navy); color:var(--text-on-navy); border-color:var(--navy);
+    }
+    .btn-primary:hover{
+      background:var(--gold); color:var(--navy); border-color:var(--gold);
+      transform:translateY(-1px); box-shadow:var(--shadow-md);
+    }
+    .btn-outline{
+      background:transparent; color:var(--navy); border-color:var(--navy);
+    }
+    .btn-outline:hover{
+      background:var(--navy); color:var(--text-on-navy);
+    }
+    .btn-gold{
+      background:var(--gold); color:var(--navy); border-color:var(--gold);
+    }
+    .btn-gold:hover{
+      background:var(--gold-bright); border-color:var(--gold-bright);
+    }
+
+    /* Hero */
+    .hero{
+      background:
+        radial-gradient(circle at 85% 20%, rgba(181,133,64,0.12), transparent 45%),
+        linear-gradient(180deg, #fbf7ee 0%, #f4ede0 100%);
+      padding:80px 0 100px;
+      position:relative; overflow:hidden;
+    }
+    .hero__inner{
+      display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px; align-items:center;
+    }
+    .hero__eyebrow{
+      display:inline-block; font-size:12px; font-weight:600; letter-spacing:2.5px;
+      color:var(--gold); text-transform:uppercase; margin-bottom:20px;
+      padding:6px 14px; border:1px solid var(--border-gold); border-radius:999px;
+      background:rgba(181,133,64,0.05);
+    }
+    .hero__title{
+      font-family:'Cinzel',serif; font-weight:600; color:var(--navy);
+      font-size:clamp(38px, 5.2vw, 62px); line-height:1.08; letter-spacing:-0.5px;
+      margin-bottom:24px;
+    }
+    .hero__title em{
+      font-style:normal; color:var(--gold);
+      background:linear-gradient(180deg, transparent 65%, rgba(181,133,64,0.20) 65%);
+      padding:0 4px;
+    }
+    .hero__sub{
+      font-size:19px; line-height:1.65; color:var(--text-secondary);
+      margin-bottom:36px; max-width:560px;
+    }
+    .hero__ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+
+    .hero__visual{ position:relative; }
+    .hero__spartan-frame{
+      position:relative;
+      background:linear-gradient(145deg, #ffffff 0%, #f9f1df 100%);
+      border-radius:24px;
+      padding:32px;
+      box-shadow:var(--shadow-lg);
+      border:1px solid var(--border-subtle);
+    }
+    .hero__spartan-frame::before{
+      content:""; position:absolute; inset:-1px;
+      border-radius:24px;
+      background:linear-gradient(135deg, var(--gold), transparent 40%);
+      -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      padding:1.5px; pointer-events:none;
+    }
+    .hero__spartan{ width:100%; height:auto; }
+
+    /* Sections */
+    .section{ padding:100px 0; }
+    .section-elevated{ background:var(--bg-elevated); }
+    .section-panel{
+      background:var(--bg-panel);
+      border-top:1px solid var(--border-subtle);
+      border-bottom:1px solid var(--border-subtle);
+    }
+    .section-navy{
+      background:var(--bg-navy); color:var(--text-on-navy);
+    }
+    .section__header{ text-align:center; max-width:820px; margin:0 auto 60px; }
+    .section__eyebrow{
+      font-size:12px; font-weight:600; letter-spacing:3px; color:var(--gold);
+      text-transform:uppercase; margin-bottom:18px;
+    }
+    .section__title{
+      font-family:'Cinzel',serif; font-weight:600; color:var(--navy);
+      font-size:clamp(32px, 4vw, 46px); line-height:1.15; letter-spacing:-0.3px;
+      margin-bottom:20px;
+    }
+    .section__title em{ font-style:normal; color:var(--gold); }
+    .section__lead{
+      font-size:18px; line-height:1.65; color:var(--text-secondary);
+    }
+    .section-navy .section__title{ color:var(--text-on-navy); }
+    .section-navy .section__lead{ color:#d9d0bd; }
+
+    /* Capability cards */
+    .capabilities{
+      display:grid; grid-template-columns:repeat(4, 1fr); gap:24px;
+    }
+    .capability{
+      background:var(--bg-elevated);
+      border:1px solid var(--border-subtle);
+      border-radius:var(--radius-lg);
+      padding:36px 28px;
+      transition:all 220ms ease;
+      display:flex; flex-direction:column;
+      box-shadow:var(--shadow-sm);
+    }
+    .capability:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow-lg);
+      border-color:var(--border-gold);
+    }
+    .capability__icon{
+      width:48px; height:48px; color:var(--gold);
+      margin-bottom:20px;
+      padding:10px; background:var(--gold-glow); border-radius:12px;
+    }
+    .capability__title{
+      font-family:'Cinzel',serif; font-weight:600; color:var(--navy);
+      font-size:20px; margin-bottom:12px; letter-spacing:0.3px;
+    }
+    .capability__desc{
+      font-size:15px; line-height:1.6; color:var(--text-secondary);
+      flex:1; margin-bottom:20px;
+    }
+    .capability__link{
+      font-size:13px; font-weight:600; color:var(--gold);
+      letter-spacing:0.8px; text-transform:uppercase;
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .capability__link::after{
+      content:"→"; transition:transform 180ms ease;
+    }
+    .capability:hover .capability__link::after{ transform:translateX(4px); }
+
+    /* Philosophy */
+    .philosophy{
+      display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:center;
+    }
+    .philosophy__visual{
+      background:linear-gradient(145deg, #ffffff 0%, #f9f1df 100%);
+      border-radius:24px; padding:40px; box-shadow:var(--shadow-md);
+      border:1px solid var(--border-subtle);
+    }
+    .philosophy__eyebrow{
+      font-size:12px; font-weight:600; letter-spacing:3px; color:var(--gold);
+      text-transform:uppercase; margin-bottom:18px;
+    }
+    .philosophy__title{
+      font-family:'Cinzel',serif; font-weight:600; color:var(--navy);
+      font-size:clamp(36px, 4.5vw, 52px); line-height:1.05; letter-spacing:-0.4px;
+      margin-bottom:24px;
+    }
+    .philosophy__body{
+      font-size:17px; line-height:1.7; color:var(--text-secondary);
+      margin-bottom:28px;
+    }
+    .philosophy__principles{
+      list-style:none; display:flex; flex-direction:column; gap:14px;
+    }
+    .philosophy__principles li{
+      font-size:15px; color:var(--text-secondary); padding-left:24px;
+      position:relative; line-height:1.6;
+    }
+    .philosophy__principles li::before{
+      content:"✦"; position:absolute; left:0; color:var(--gold); font-size:14px;
+    }
+    .philosophy__principles strong{ color:var(--navy); font-weight:600; }
+
+    /* Locations — card grid */
+    .locations{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+    }
+    .location-card{
+      background:var(--bg-elevated);
+      border:1px solid var(--border-subtle);
+      border-radius:var(--radius-lg);
+      padding:28px 24px;
+      box-shadow:var(--shadow-sm);
+      transition:all 220ms ease;
+    }
+    .location-card:hover{
+      box-shadow:var(--shadow-md); border-color:var(--border-gold);
+    }
+    .location-card__region{
+      font-size:11px; font-weight:600; letter-spacing:2px; color:var(--gold);
+      text-transform:uppercase; margin-bottom:10px;
+    }
+    .location-card__title{
+      font-family:'Cinzel',serif; font-weight:600; color:var(--navy);
+      font-size:18px; margin-bottom:12px;
+    }
+    .location-card__addr{
+      font-size:14px; color:var(--text-secondary); line-height:1.55; margin-bottom:18px;
+    }
+    .location-card__phone{
+      font-size:14px; font-weight:600; color:var(--gold);
+    }
+
+    /* CTA band */
+    .cta-band{
+      background:linear-gradient(135deg, var(--bg-navy) 0%, #1a3560 100%);
+      color:var(--text-on-navy);
+      padding:80px 0;
+      text-align:center;
+      position:relative; overflow:hidden;
+    }
+    .cta-band::before{
+      content:""; position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(181,133,64,0.18), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(181,133,64,0.10), transparent 40%);
+      pointer-events:none;
+    }
+    .cta-band > .container{ position:relative; }
+    .cta-band h2{
+      font-family:'Cinzel',serif; font-weight:600; font-size:clamp(32px,4vw,44px);
+      color:var(--text-on-navy); margin-bottom:16px; line-height:1.2;
+    }
+    .cta-band p{
+      font-size:17px; line-height:1.6; color:#d9d0bd; max-width:640px; margin:0 auto 32px;
+    }
+    .cta-band__buttons{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .cta-band .btn-outline{
+      color:var(--text-on-navy); border-color:var(--text-on-navy);
+    }
+    .cta-band .btn-outline:hover{
+      background:var(--text-on-navy); color:var(--navy);
+    }
+
+    /* Footer */
+    .site-footer{
+      background:var(--bg-panel);
+      color:var(--text-secondary);
+      padding:64px 0 24px;
+      border-top:1px solid var(--border-subtle);
+    }
+    .site-footer__grid{
+      max-width:1280px; margin:0 auto; padding:0 28px;
+      display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;
+    }
+    .footer-col h4{
+      font-family:'Cinzel',serif; font-weight:600; color:var(--navy);
+      font-size:14px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:18px;
+    }
+    .footer-col ul{ list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .footer-col a{
+      font-size:14px; color:var(--text-secondary); transition:color 150ms ease;
+    }
+    .footer-col a:hover{ color:var(--gold); }
+    .footer-col p{ font-size:14px; line-height:1.7; margin-bottom:12px; }
+    .footer-tagline{
+      font-style:italic; color:var(--gold); font-size:13px !important;
+    }
+    .footer-bottom{
+      max-width:1280px; margin:40px auto 0; padding:20px 28px 0;
+      border-top:1px solid var(--border-subtle);
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+      font-size:12px; color:var(--text-quiet);
+    }
+    .footer-bottom a{ color:var(--text-tertiary); }
+    .footer-bottom a:hover{ color:var(--gold); }
+    .footer-bottom__banner{
+      font-family:'Cinzel',serif; font-size:12px; letter-spacing:2px;
+      color:var(--gold); text-transform:uppercase;
+    }
+
+    @media (max-width: 960px){
+      .hero__inner{ grid-template-columns:1fr; }
+      .capabilities{ grid-template-columns:repeat(2, 1fr); }
+      .locations{ grid-template-columns:repeat(2, 1fr); }
+      .philosophy{ grid-template-columns:1fr; }
+      .site-footer__grid{ grid-template-columns:1fr 1fr; }
+      .main-nav{ display:none; }
+    }
+    @media (max-width: 560px){
+      .capabilities, .locations{ grid-template-columns:1fr; }
+      .site-footer__grid{ grid-template-columns:1fr; }
+    }
+  </style>
 </head>
 <body>
+
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- Utility bar -->
   <div class="utility-bar">
     <div class="utility-bar__inner">
       <div class="utility-bar__item">
@@ -81,28 +486,24 @@
         New Jersey · Pennsylvania · Florida
       </div>
       <div class="utility-bar__right">
-        <a class="utility-bar__item" href="tel:+18772157246" style="color: inherit; text-decoration: none;">
+        <a class="utility-bar__item" href="tel:+18772157246">
           <svg class="utility-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.37 1.6.72 2.34a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.74-1.29a2 2 0 0 1 2.11-.45c.74.35 1.53.59 2.34.72A2 2 0 0 1 22 16.92z"/></svg>
           1-877-215-PAIN
         </a>
-        <a class="utility-bar__item" href="patient-portal/index.html" style="color: inherit; text-decoration: none;">Patient Portal</a>
+        <a class="utility-bar__item" href="patient-portal/index.html">Patient Portal</a>
       </div>
     </div>
   </div>
 
-  <!-- Header -->
   <header class="site-header">
     <div class="site-header__inner">
       <a class="brand" href="index.html" aria-label="Triumph Ortho & Spine — Home">
-        <div class="brand-text">
+        <div>
           <div class="brand-text__main">TRIUMPH</div>
           <div class="brand-text__sub">ORTHO &amp; SPINE</div>
         </div>
       </a>
-      <button class="nav-toggle" data-nav-toggle aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
-        <span class="nav-toggle__bars"><span></span><span></span><span></span></span>
-      </button>
-      <nav class="main-nav" id="primary-nav" data-nav aria-label="Primary">
+      <nav class="main-nav" aria-label="Primary">
         <ul class="main-nav__list">
           <li><a class="main-nav__link" href="services/index.html">Technology</a></li>
           <li><a class="main-nav__link" href="services/index.html">Care</a></li>
@@ -111,7 +512,7 @@
           <li><a class="main-nav__link" href="about/index.html">About</a></li>
           <li><a class="main-nav__link" href="contact/index.html">Locations</a></li>
           <li><a class="main-nav__link" href="patient-portal/index.html">New Patient Packet</a></li>
-          <li><a class="btn btn-primary" href="contact/schedule.html">Book Consult</a></li>
+          <li><a class="btn btn-gold" href="contact/schedule.html">Book Consult</a></li>
         </ul>
       </nav>
     </div>
@@ -119,9 +520,7 @@
 
   <main id="main">
 
-    <!-- =========================================================
-         HERO — Performance Spartan
-         ========================================================= -->
+    <!-- HERO -->
     <section class="hero">
       <div class="container hero__inner">
         <div class="hero__content">
@@ -140,20 +539,13 @@
 
         <div class="hero__visual">
           <div class="hero__spartan-frame">
-            <img
-              class="hero__spartan"
-              src="assets/hero-spartan.png"
-              alt="Spartan warrior with glowing gold spine and arm bones — the Triumph Ortho &amp; Spine brand mark"
-            />
+            <img class="hero__spartan" src="assets/hero-spartan.png" alt="Spartan warrior with glowing gold spine and arm bones — the Triumph Ortho &amp; Spine brand mark" />
           </div>
         </div>
       </div>
-
     </section>
 
-    <!-- =========================================================
-         CAPABILITIES — 4 service pillars
-         ========================================================= -->
+    <!-- CAPABILITIES -->
     <section class="section section-elevated" id="capabilities">
       <div class="container">
         <div class="section__header">
@@ -172,49 +564,40 @@
             </svg>
             <div class="capability__title">Pain Medicine</div>
             <p class="capability__desc">Interventional procedures targeting the source — image-guided injections, RFA, nerve blocks, spinal stimulators.</p>
-            <div class="capability__link">Explore Treatment</div>
+            <div class="capability__link">Explore</div>
           </a>
 
           <a class="capability" href="services/spine-care.html">
             <svg class="capability__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M24 6 L24 42"/>
-              <ellipse cx="24" cy="12" rx="5" ry="3"/>
-              <ellipse cx="24" cy="20" rx="6" ry="3"/>
-              <ellipse cx="24" cy="28" rx="6" ry="3"/>
-              <ellipse cx="24" cy="36" rx="5" ry="3"/>
+              <path d="M24 6 L24 42"/><ellipse cx="24" cy="12" rx="5" ry="3"/><ellipse cx="24" cy="20" rx="6" ry="3"/><ellipse cx="24" cy="28" rx="6" ry="3"/><ellipse cx="24" cy="36" rx="5" ry="3"/>
             </svg>
             <div class="capability__title">Spine Care</div>
             <p class="capability__desc">From conservative management to minimally invasive decompression and fusion. Surgery only when nothing else will work.</p>
-            <div class="capability__link">Explore Treatment</div>
+            <div class="capability__link">Explore</div>
           </a>
 
           <a class="capability" href="services/joint-care.html">
             <svg class="capability__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 8 L14 20 Q14 24 18 24 L30 24 Q34 24 34 28 L34 40"/>
-              <circle cx="14" cy="22" r="4" fill="currentColor"/>
-              <circle cx="34" cy="26" r="4" fill="currentColor"/>
+              <path d="M14 8 L14 20 Q14 24 18 24 L30 24 Q34 24 34 28 L34 40"/><circle cx="14" cy="22" r="4" fill="currentColor"/><circle cx="34" cy="26" r="4" fill="currentColor"/>
             </svg>
             <div class="capability__title">Joint Care</div>
             <p class="capability__desc">Knees, hips, shoulders. Cartilage regeneration, biologic injections, joint preservation — replacement only when warranted.</p>
-            <div class="capability__link">Explore Treatment</div>
+            <div class="capability__link">Explore</div>
           </a>
 
           <a class="capability" href="services/sports-injury.html">
             <svg class="capability__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="24" cy="14" r="6"/>
-              <path d="M24 22 L24 32 M16 26 L24 30 L32 26 M18 42 L24 32 L30 42"/>
+              <circle cx="24" cy="14" r="6"/><path d="M24 22 L24 32 M16 26 L24 30 L32 26 M18 42 L24 32 L30 42"/>
             </svg>
             <div class="capability__title">Sports Injury</div>
-            <p class="capability__desc">Built for athletes, weekend warriors, and anyone whose work is physical. Faster diagnosis. Targeted treatment. Measurable return-to-play.</p>
-            <div class="capability__link">Explore Treatment</div>
+            <p class="capability__desc">Built for athletes, weekend warriors, and anyone whose work is physical. Faster diagnosis. Measurable return-to-play.</p>
+            <div class="capability__link">Explore</div>
           </a>
         </div>
       </div>
     </section>
 
-    <!-- =========================================================
-         PHILOSOPHY — Spartan as side anchor
-         ========================================================= -->
+    <!-- PHILOSOPHY -->
     <section class="section section-panel" id="outcomes">
       <div class="container philosophy">
         <div class="philosophy__visual">
@@ -222,7 +605,7 @@
         </div>
         <div class="philosophy__content">
           <div class="philosophy__eyebrow">Our Standard</div>
-          <h2 class="philosophy__title">Pain isn't<br/>your identity.<br/>Movement is.</h2>
+          <h2 class="philosophy__title">Pain isn't your identity.<br/>Movement is.</h2>
           <p class="philosophy__body">
             Triumph was built around a single conviction: chronic pain is solvable when you bring
             real diagnostic precision, image-guided procedures, and outcomes data into the same
@@ -238,54 +621,59 @@
       </div>
     </section>
 
-    <!-- =========================================================
-         LOCATIONS — 3 active sites
-         ========================================================= -->
+    <!-- LOCATIONS -->
     <section class="section" id="locations">
       <div class="container">
         <div class="section__header">
           <div class="section__eyebrow">Locations</div>
-          <h2 class="section__title">A premier orthopedic and spine practice. <em>Four locations and growing.</em></h2>
+          <h2 class="section__title">A premier orthopedic and spine practice. <em>Five locations and growing.</em></h2>
           <p class="section__lead">
-            Four full-service practices across New Jersey, Pennsylvania, and Florida — one standard of care.
-            Additional locations on the way.
+            Five full-service practices across New Jersey, Pennsylvania, and Florida — one standard of care.
           </p>
         </div>
 
-        <div class="capabilities">
-          <article class="capability" style="cursor: default;">
-            <div class="capability__title" style="font-size: 16px; color: var(--gold);">Lawrence Township, NJ</div>
-            <p class="capability__desc">638 Lawrenceville Rd<br/>Lawrence Township, NJ 08648</p>
-            <div class="capability__link" style="margin-top: 14px;"><a href="tel:+18772157246" style="color: var(--gold);">1-877-215-PAIN</a></div>
+        <div class="locations">
+          <article class="location-card">
+            <div class="location-card__region">New Jersey</div>
+            <div class="location-card__title">Lawrence Township</div>
+            <p class="location-card__addr">638 Lawrenceville Rd<br/>Lawrence Township, NJ 08648</p>
+            <div class="location-card__phone"><a href="tel:+18772157246">1-877-215-PAIN</a></div>
           </article>
-          <article class="capability" style="cursor: default;">
-            <div class="capability__title" style="font-size: 16px; color: var(--gold);">Wilkes-Barre, PA</div>
-            <p class="capability__desc">1177 PA Route 315<br/>Wilkes-Barre, PA 18702</p>
-            <div class="capability__link" style="margin-top: 14px;"><a href="tel:+18772157246" style="color: var(--gold);">1-877-215-PAIN</a></div>
+          <article class="location-card">
+            <div class="location-card__region">Pennsylvania</div>
+            <div class="location-card__title">Wilkes-Barre</div>
+            <p class="location-card__addr">1177 PA Route 315<br/>Wilkes-Barre, PA 18702</p>
+            <div class="location-card__phone"><a href="tel:+18772157246">1-877-215-PAIN</a></div>
           </article>
-          <article class="capability" style="cursor: default;">
-            <div class="capability__title" style="font-size: 16px; color: var(--gold);">Levittown, PA</div>
-            <p class="capability__desc">2346 Trenton Rd, Suite B<br/>Levittown, PA 19056</p>
-            <div class="capability__link" style="margin-top: 14px;"><a href="tel:+18772157246" style="color: var(--gold);">1-877-215-PAIN</a></div>
+          <article class="location-card">
+            <div class="location-card__region">Pennsylvania</div>
+            <div class="location-card__title">Levittown</div>
+            <p class="location-card__addr">2346 Trenton Rd, Suite B<br/>Levittown, PA 19056</p>
+            <div class="location-card__phone"><a href="tel:+18772157246">1-877-215-PAIN</a></div>
           </article>
-          <article class="capability" style="cursor: default;">
-            <div class="capability__title" style="font-size: 16px; color: var(--gold);">Miami, FL</div>
-            <p class="capability__desc">2999 NE 191st St, Suite 300<br/>Miami, FL 33180</p>
-            <div class="capability__link" style="margin-top: 14px;"><a href="tel:+18772157246" style="color: var(--gold);">1-877-215-PAIN</a></div>
+          <article class="location-card">
+            <div class="location-card__region">Florida</div>
+            <div class="location-card__title">Miami</div>
+            <p class="location-card__addr">2999 NE 191st St, Suite 300<br/>Miami, FL 33180</p>
+            <div class="location-card__phone"><a href="tel:+18772157246">1-877-215-PAIN</a></div>
+          </article>
+          <article class="location-card">
+            <div class="location-card__region">Pennsylvania</div>
+            <div class="location-card__title">Narberth</div>
+            <p class="location-card__addr">124 N Narberth Ave<br/>Narberth, PA 19072</p>
+            <div class="location-card__phone"><a href="tel:+18772157246">1-877-215-PAIN</a></div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- =========================================================
-         CTA BAND
-         ========================================================= -->
+    <!-- CTA BAND -->
     <section class="cta-band">
       <div class="container">
         <h2>Stop accepting the downtime.</h2>
-        <p>The path to relief starts with a precise diagnosis and a real plan. We're accepting new patients across all four locations.</p>
+        <p>The path to relief starts with a precise diagnosis and a real plan. We're accepting new patients across all five locations.</p>
         <div class="cta-band__buttons">
-          <a class="btn btn-primary btn-large" href="contact/schedule.html">Schedule a Consultation</a>
+          <a class="btn btn-gold btn-large" href="contact/schedule.html">Schedule a Consultation</a>
           <a class="btn btn-outline btn-large" href="tel:+18772157246">Call 1-877-215-PAIN</a>
         </div>
       </div>
@@ -293,12 +681,13 @@
 
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="site-footer__grid">
       <div class="footer-col">
-        <img class="footer-brand__logo" src="assets/logo.svg" alt="Triumph Ortho &amp; Spine" />
-        <p>Lawrence Township, NJ · Wilkes-Barre, PA · Levittown, PA · Miami, FL<br/>1-877-215-PAIN<br/>Fax: (877) 706-1872<br/><a href="mailto:info@triumphorthospine.com">info@triumphorthospine.com</a></p>
+        <div class="brand-text__main" style="font-size:22px; margin-bottom:6px;">TRIUMPH</div>
+        <div class="brand-text__sub" style="margin-bottom:20px;">ORTHO &amp; SPINE</div>
+        <p>Lawrence Township, NJ · Wilkes-Barre, PA<br/>Levittown, PA · Miami, FL · Narberth, PA</p>
+        <p>1-877-215-PAIN · Fax: (877) 706-1872<br/><a href="mailto:info@triumphorthospine.com">info@triumphorthospine.com</a></p>
         <p class="footer-tagline">Restoring Mobility. Relieving Pain. Rebuilding Lives.</p>
       </div>
       <div class="footer-col">
@@ -335,6 +724,7 @@
       <div class="footer-bottom__banner">Expert Care · Advanced Solutions · Lasting Results</div>
     </div>
   </footer>
+
   <script src="js/main.js"></script>
 </body>
 </html>
