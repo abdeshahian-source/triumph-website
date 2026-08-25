@@ -55,10 +55,11 @@
 .tos-sub{margin-top:2px;font:400 12px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
   color:rgba(245,239,225,.72);display:flex;align-items:center;gap:6px}
 .tos-live{width:7px;height:7px;border-radius:50%;background:#5ac47d;flex:0 0 auto}
-.tos-x{flex:0 0 auto;width:34px;height:34px;border:0;border-radius:8px;background:transparent;color:#f5efe1;
+.tos-x,.tos-reset{flex:0 0 auto;width:34px;height:34px;border:0;border-radius:8px;background:transparent;color:#f5efe1;
   cursor:pointer;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.tos-x:hover{background:rgba(245,239,225,.14)}
-.tos-x:focus-visible{outline:2px solid #b58540;outline-offset:2px}
+.tos-x:hover,.tos-reset:hover{background:rgba(245,239,225,.14)}
+.tos-x:focus-visible,.tos-reset:focus-visible{outline:2px solid #b58540;outline-offset:2px}
+.tos-reset[hidden]{display:none}
 
 .tos-log{flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;padding:20px 18px 8px;
   display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth}
@@ -130,6 +131,11 @@
           '<div class="tos-title">Triumph Ortho &amp; Spine</div>' +
           '<div class="tos-sub"><span class="tos-live"></span>Virtual care coordinator</div>' +
         '</div>' +
+        '<button class="tos-reset" type="button" aria-label="Start a new conversation" title="Start over" hidden>' +
+          '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+          '<path d="M3 12a9 9 0 1 0 2.6-6.4M3 4v5h5" stroke="currentColor" stroke-width="2" ' +
+          'stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+        '</button>' +
         '<button class="tos-x" type="button" aria-label="Close chat">&times;</button>' +
       '</header>' +
       '<div class="tos-log" role="log" aria-live="polite" aria-atomic="false"></div>' +
@@ -156,6 +162,7 @@
   var quick = root.querySelector('.tos-quick');
   var input = root.querySelector('.tos-in');
   var send = root.querySelector('.tos-send');
+  var resetBtn = root.querySelector('.tos-reset');
 
   /* -------------------------------------------------------------- helpers */
   function esc(s) {
@@ -240,6 +247,7 @@
     bubble('user', text);
     messages.push({ role: 'user', content: text });
     save();
+    syncReset();
 
     busy = true;
     typing(true);
@@ -287,6 +295,7 @@
         renderQuick(true);
         save();
       }
+      syncReset();
     }
     setTimeout(function () { input.focus(); }, 220);
   }
@@ -299,8 +308,31 @@
     launcher.focus();
   }
 
+  /* Show "start over" only once the visitor has actually said something. */
+  function syncReset() {
+    resetBtn.hidden = !messages.some(function (m) { return m.role === 'user'; });
+  }
+
+  /* Wipe the transcript and start a fresh conversation. */
+  function reset() {
+    if (busy) return;
+    messages = [];
+    log.innerHTML = '';
+    try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    input.value = '';
+    input.style.height = 'auto';
+    send.disabled = true;
+    bubble('assistant', GREETING);
+    messages.push({ role: 'assistant', content: GREETING });
+    renderQuick(true);
+    save();
+    syncReset();
+    input.focus();
+  }
+
   launcher.addEventListener('click', open);
   closeBtn.addEventListener('click', close);
+  resetBtn.addEventListener('click', reset);
   send.addEventListener('click', function () { submit(); });
 
   input.addEventListener('input', function () {
