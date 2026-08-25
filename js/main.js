@@ -36,6 +36,20 @@
   const yearEl = document.querySelector('[data-current-year]');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---- Footer locations -----------------------------------------------
+     The 90 static pages were generated before Narberth opened, so their
+     footers still list four locations. Patch the line at runtime until the
+     HTML is regenerated. Safe no-op on pages already listing Narberth. */
+  (function patchFooterLocations() {
+    var nodes = document.querySelectorAll('.site-footer p, .footer-col p');
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      if (el.innerHTML.indexOf('Miami, FL') !== -1 && el.innerHTML.indexOf('Narberth') === -1) {
+        el.innerHTML = el.innerHTML.replace('Miami, FL', 'Miami, FL &middot; Narberth, PA');
+      }
+    }
+  })();
+
   /* ---- Website chat widget -------------------------------------------
      Loaded here so every page that includes main.js gets it. Deliberately
      NOT loaded on /patient-portal/* (those pages don't include main.js) —
