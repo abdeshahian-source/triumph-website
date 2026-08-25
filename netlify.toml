@@ -6,6 +6,8 @@
   publish = "."
   # No build command (pure static HTML/CSS/JS).
   command = ""
+  # Serverless functions (chat backend).
+  functions = "netlify/functions"
 
 # Security headers — reasonable defaults for a healthcare marketing site.
 # IMPORTANT: When PHI forms are added later, Netlify is NOT a HIPAA Business Associate.
@@ -20,7 +22,7 @@
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     # CSP intentionally permissive for v1 (Google Fonts). Tighten before production launch.
     # cdnjs.cloudflare.com allowlisted for jsPDF used by the patient portal.
-    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
 
 # Long-cache static assets, short-cache HTML so edits propagate fast.
 [[headers]]
@@ -49,6 +51,11 @@
 
 [build.processing.html]
   pretty_urls = true
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Cache-Control = "no-store"
 
 # 404 fallback
 [[redirects]]
