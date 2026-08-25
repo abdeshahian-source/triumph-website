@@ -35,4 +35,20 @@
   // Set current year in footer
   const yearEl = document.querySelector('[data-current-year]');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ---- Website chat widget -------------------------------------------
+     Loaded here so every page that includes main.js gets it. Deliberately
+     NOT loaded on /patient-portal/* (those pages don't include main.js) —
+     the intake forms collect PHI and shouldn't surface a chat widget.
+     Config + system prompt: netlify/functions/chat.js  |  Docs: CHATBOT_SETUP.md */
+  (function loadTriumphChat() {
+    if (window.__triumphChatLoaded) return;
+    var base = document.querySelector('script[src*="js/main.js"]');
+    var src = base ? base.getAttribute('src').replace(/main\.js.*$/, 'chat-widget.js')
+                   : '/js/chat-widget.js';
+    var s = document.createElement('script');
+    s.src = src;
+    s.defer = true;
+    document.body.appendChild(s);
+  })();
 })();
