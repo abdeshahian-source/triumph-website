@@ -38,7 +38,9 @@
 [[headers]]
   for = "/js/*"
   [headers.values]
-    Cache-Control = "public, max-age=86400, must-revalidate"
+    # main.js injects footer location list at runtime, so it carries content.
+    # Always revalidate (cheap 304s) instead of a 24h blind cache.
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/*.html"
