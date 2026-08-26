@@ -38,15 +38,21 @@
 
   /* ---- Footer locations -----------------------------------------------
      The 90 static pages were generated before Narberth opened, so their
-     footers still list four locations. Patch the line at runtime until the
+     footers still list four locations (Narberth and Clifton were added later). Patch the line at runtime until the
      HTML is regenerated. Safe no-op on pages already listing Narberth. */
   (function patchFooterLocations() {
     var nodes = document.querySelectorAll('.site-footer p, .footer-col p');
     for (var i = 0; i < nodes.length; i++) {
       var el = nodes[i];
-      if (el.innerHTML.indexOf('Miami, FL') !== -1 && el.innerHTML.indexOf('Narberth') === -1) {
-        el.innerHTML = el.innerHTML.replace('Miami, FL', 'Miami, FL &middot; Narberth, PA');
+      var html = el.innerHTML;
+      if (html.indexOf('Miami, FL') === -1) continue;
+      if (html.indexOf('Narberth') === -1) {
+        html = html.replace('Miami, FL', 'Miami, FL &middot; Narberth, PA');
       }
+      if (html.indexOf('Clifton') === -1) {
+        html = html.replace('Narberth, PA', 'Narberth, PA &middot; Clifton, NJ');
+      }
+      el.innerHTML = html;
     }
   })();
 
