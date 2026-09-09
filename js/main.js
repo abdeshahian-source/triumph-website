@@ -38,8 +38,9 @@
 
   /* ---- Footer locations -----------------------------------------------
      The 90 static pages were generated before Narberth opened, so their
-     footers still list four locations (Narberth and Clifton were added later). Patch the line at runtime until the
-     HTML is regenerated. Safe no-op on pages already listing Narberth. */
+     footers still list four locations (Narberth, Clifton and Trevose were
+     added later). Patch the line at runtime until the HTML is regenerated.
+     Safe no-op on pages already listing a given location. */
   (function patchFooterLocations() {
     var nodes = document.querySelectorAll('.site-footer p, .footer-col p');
     for (var i = 0; i < nodes.length; i++) {
@@ -51,6 +52,9 @@
       }
       if (html.indexOf('Clifton') === -1) {
         html = html.replace('Narberth, PA', 'Narberth, PA &middot; Clifton, NJ');
+      }
+      if (html.indexOf('Trevose') === -1) {
+        html = html.replace('Clifton, NJ', 'Clifton, NJ &middot; Trevose, PA');
       }
       el.innerHTML = html;
     }
