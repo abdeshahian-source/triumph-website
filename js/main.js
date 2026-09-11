@@ -38,7 +38,7 @@
 
   /* ---- Footer locations -----------------------------------------------
      The 90 static pages were generated before Narberth opened, so their
-     footers still list four locations (Narberth, Clifton and Trevose were
+     footers still list four locations (Narberth and Trevose were
      added later). Patch the line at runtime until the HTML is regenerated.
      Safe no-op on pages already listing a given location. */
   (function patchFooterLocations() {
@@ -50,11 +50,8 @@
       if (html.indexOf('Narberth') === -1) {
         html = html.replace('Miami, FL', 'Miami, FL &middot; Narberth, PA');
       }
-      if (html.indexOf('Clifton') === -1) {
-        html = html.replace('Narberth, PA', 'Narberth, PA &middot; Clifton, NJ');
-      }
       if (html.indexOf('Trevose') === -1) {
-        html = html.replace('Clifton, NJ', 'Clifton, NJ &middot; Trevose, PA');
+        html = html.replace('Narberth, PA', 'Narberth, PA &middot; Trevose, PA');
       }
       el.innerHTML = html;
     }
