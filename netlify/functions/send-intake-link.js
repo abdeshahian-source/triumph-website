@@ -27,7 +27,8 @@
  *   TWILIO_FROM              +1XXXXXXXXXX       (fallback if no service SID)
  *
  * Email — preferred path is your own Google Workspace, which is BAA-covered:
- *   LEAD_WEBHOOK_URL         Apps Script web app URL (already set for the chat widget)
+ *   INTAKE_LINK_WEBHOOK_URL  Apps Script web app URL that handles action:'intakeLink'
+ *                            (falls back to LEAD_WEBHOOK_URL if unset)
  *   INTAKE_LINK_SECRET       must match INTAKE_LINK_SECRET in apps-script/Code.gs
  * Fallback only if the webhook is not configured:
  *   RESEND_API_KEY
@@ -203,8 +204,9 @@ async function sendSms(to) {
 async function sendEmail(to) {
   // Preferred: Google Apps Script running inside the Triumph Workspace. The
   // message body lives there, so this call carries only a recipient address.
-  if (process.env.LEAD_WEBHOOK_URL && process.env.INTAKE_LINK_SECRET) {
-    const res = await fetch(process.env.LEAD_WEBHOOK_URL, {
+  const hook = process.env.INTAKE_LINK_WEBHOOK_URL || process.env.LEAD_WEBHOOK_URL;
+  if (hook && process.env.INTAKE_LINK_SECRET) {
+    const res = await fetch(hook, {
       method: 'POST',
       // text/plain avoids an Apps Script CORS preflight.
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -225,7 +227,7 @@ async function sendEmail(to) {
 
   // Fallback: Resend.
   if (!process.env.RESEND_API_KEY) {
-    return { ok: false, reason: 'Email is not configured yet. Set LEAD_WEBHOOK_URL and INTAKE_LINK_SECRET.' };
+    return { ok: false, reason: 'Email is not configured yet. Set INTAKE_LINK_WEBHOOK_URL and INTAKE_LINK_SECRET.' };
   }
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -257,7 +259,8 @@ exports.handler = async (event) => {
     return json(200, {
       smsEnabled: String(process.env.SMS_ENABLED).toLowerCase() === 'true'
         && !!process.env.TWILIO_ACCOUNT_SID,
-      emailEnabled: (!!process.env.LEAD_WEBHOOK_URL && !!process.env.INTAKE_LINK_SECRET)
+      emailEnabled: ((!!process.env.INTAKE_LINK_WEBHOOK_URL || !!process.env.LEAD_WEBHOOK_URL)
+        && !!process.env.INTAKE_LINK_SECRET)
         || !!process.env.RESEND_API_KEY,
     });
   }
