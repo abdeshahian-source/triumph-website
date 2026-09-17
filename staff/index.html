@@ -35,18 +35,7 @@
   h1{font-size:24px;font-weight:700;letter-spacing:-.01em;margin:22px 0 6px}
   .lede{color:var(--muted);font-size:14px;margin-bottom:22px}
 
-  .status{
-    display:flex;align-items:flex-start;gap:10px;
-    font-size:13px;padding:12px 14px;border-radius:10px;margin-bottom:22px;
-    border:1px solid var(--border);background:var(--panel);color:var(--muted);
-  }
-  .status.on{border-color:rgba(76,175,124,.45);background:rgba(76,175,124,.09)}
-  .status.off{border-color:rgba(201,162,74,.45);background:rgba(201,162,74,.09)}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--quiet);margin-top:7px;flex:none}
-  .status.on .dot{background:var(--success)}
-  .status.off .dot{background:var(--gold)}
-
-  form{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px}
   .field{margin-bottom:18px}
   label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}
   .hint{display:block;font-weight:400;color:var(--quiet);font-size:12px;margin-top:3px}
@@ -57,9 +46,6 @@
   }
   input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,74,.18)}
   input::placeholder{color:var(--quiet)}
-  .row{display:flex;gap:10px;align-items:center;margin:-6px 0 18px}
-  .row input[type=checkbox]{width:auto;flex:none}
-  .row label{margin:0;font-weight:400;font-size:13px;color:var(--muted)}
 
   button{
     width:100%;padding:15px;font:inherit;font-size:16px;font-weight:700;
@@ -71,17 +57,45 @@
   button.ghost{background:transparent;color:var(--gold);border:1px solid var(--border-strong);margin-top:10px}
   button.ghost:hover{background:rgba(255,255,255,.04)}
 
+  .err{
+    display:none;margin-top:14px;padding:11px 13px;border-radius:8px;font-size:13px;
+    background:rgba(232,93,93,.10);border:1px solid rgba(232,93,93,.45);color:#ffc9c9;
+  }
+  .err.show{display:block}
+
+  .who{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    font-size:13px;color:var(--muted);margin-bottom:18px;
+    padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:var(--panel);
+  }
+  .who b{color:var(--text);font-weight:600}
+  .lock{
+    width:auto;padding:6px 12px;font-size:12px;font-weight:600;
+    background:transparent;color:var(--muted);border:1px solid var(--border-strong);border-radius:7px;
+  }
+  .lock:hover{background:rgba(255,255,255,.05);color:var(--text)}
+
+  .status{
+    display:flex;align-items:flex-start;gap:10px;
+    font-size:13px;padding:12px 14px;border-radius:10px;margin-bottom:22px;
+    border:1px solid var(--border);background:var(--panel);color:var(--muted);
+  }
+  .status.on{border-color:rgba(76,175,124,.45);background:rgba(76,175,124,.09)}
+  .status.off{border-color:rgba(201,162,74,.45);background:rgba(201,162,74,.09)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--quiet);margin-top:7px;flex:none}
+  .status.on .dot{background:var(--success)}
+  .status.off .dot{background:var(--gold)}
+
   .result{margin-top:20px;padding:18px;border-radius:12px;border:1px solid var(--border);background:var(--panel)}
   .result h2{font-size:15px;margin-bottom:12px;font-weight:700}
   .line{display:flex;gap:9px;align-items:flex-start;font-size:14px;padding:7px 0}
   .line .mark{flex:none;font-weight:700;width:16px;text-align:center}
   .ok .mark{color:var(--success)} .bad .mark{color:var(--danger)}
   .bad span{color:var(--muted)}
-  .who{font-size:12px;color:var(--quiet);margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
 
   .fine{margin-top:26px;font-size:12px;color:var(--quiet);line-height:1.7}
   .fine strong{color:var(--muted)}
-  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  [hidden]{display:none !important}
 </style>
 </head>
 <body>
@@ -95,55 +109,69 @@
     </div>
   </div>
 
-  <h1>Send intake link</h1>
-  <p class="lede">Sends the patient a link to the new patient forms. Nothing else.</p>
+  <!-- ============ STEP 1: PASSWORD ============ -->
+  <section id="gate">
+    <h1>Staff sign in</h1>
+    <p class="lede">Enter the staff password to continue.</p>
 
-  <div class="status" id="status"><span class="dot"></span><span id="statusText">Checking what's turned on…</span></div>
+    <form class="card" id="gateForm" autocomplete="off">
+      <div class="field" style="margin-bottom:0">
+        <label for="passcode">Password</label>
+        <input id="passcode" type="password" required autocomplete="current-password" autofocus />
+      </div>
+      <div class="err" id="gateErr"></div>
+      <button type="submit" id="gateBtn" style="margin-top:18px">Continue</button>
+    </form>
+  </section>
 
-  <form id="form" autocomplete="off">
-    <div class="field">
-      <label for="passcode">Password</label>
-      <input id="passcode" name="passcode" type="password" required autocomplete="off" />
-    </div>
-    <div class="row">
-      <input type="checkbox" id="remember" checked />
-      <label for="remember">Remember until I close this tab</label>
-    </div>
+  <!-- ============ STEP 2: PATIENT INFO ============ -->
+  <section id="app" hidden>
+    <h1>Send intake link</h1>
+    <p class="lede">Sends the patient a link to the new patient forms. Nothing else.</p>
 
-    <div class="field">
-      <label for="pname">Patient first name
-        <span class="hint">Optional. Stays on this screen so you can confirm you sent the right one. It is never texted, emailed, or stored.</span>
-      </label>
-      <input id="pname" type="text" autocomplete="off" />
-    </div>
-
-    <div class="field">
-      <label for="phone">Mobile number
-        <span class="hint">10 digits. Mobile only — landlines will fail.</span>
-      </label>
-      <input id="phone" type="tel" inputmode="tel" placeholder="(555) 123-4567" autocomplete="off" />
+    <div class="who">
+      <span>Signed in as <b id="whoName">staff</b></span>
+      <button type="button" class="lock" id="lockBtn">Lock</button>
     </div>
 
-    <div class="field">
-      <label for="email">Email address
-        <span class="hint">Optional. Fill in either or both.</span>
-      </label>
-      <input id="email" type="email" inputmode="email" placeholder="patient@example.com" autocomplete="off" />
-    </div>
+    <div class="status" id="status"><span class="dot"></span><span id="statusText">Checking what's turned on…</span></div>
 
-    <button type="submit" id="send">Send link</button>
-  </form>
+    <form class="card" id="sendForm" autocomplete="off">
+      <div class="field">
+        <label for="pname">Patient first name
+          <span class="hint">Optional. Stays on this screen so you can confirm you sent the right one. It is never texted, emailed, or stored.</span>
+        </label>
+        <input id="pname" type="text" autocomplete="off" />
+      </div>
 
-  <div id="result" hidden></div>
+      <div class="field">
+        <label for="phone">Mobile number
+          <span class="hint">10 digits. Mobile only — landlines will fail.</span>
+        </label>
+        <input id="phone" type="tel" inputmode="tel" placeholder="(555) 123-4567" autocomplete="off" />
+      </div>
 
-  <p class="fine">
-    <strong>What the patient receives.</strong> A fixed message with a link to
-    triumphorthospine.com/patient-portal and our phone number. No name, no
-    appointment details, no clinical information. The wording cannot be changed
-    from this screen.<br /><br />
-    Do not use this to send anything else. If a patient replies to the text,
-    answer them by phone — not by text.
-  </p>
+      <div class="field">
+        <label for="email">Email address
+          <span class="hint">Optional. Fill in either or both.</span>
+        </label>
+        <input id="email" type="email" inputmode="email" placeholder="patient@example.com" autocomplete="off" />
+      </div>
+
+      <button type="submit" id="send">Send link</button>
+    </form>
+
+    <div id="result" hidden></div>
+
+    <p class="fine">
+      <strong>What the patient receives.</strong> A fixed message with a link to
+      triumphorthospine.com/patient-portal and our phone number. No name, no
+      appointment details, no clinical information. The wording cannot be changed
+      from this screen.<br /><br />
+      Do not use this to send anything else. If a patient replies to the text,
+      answer them by phone — not by text.
+    </p>
+  </section>
 
 </div>
 
@@ -151,35 +179,103 @@
 (function () {
   'use strict';
   var ENDPOINT = '/.netlify/functions/send-intake-link';
-  var form = document.getElementById('form');
+  var KEY = 'triumph_staff_code';
+
+  var gate = document.getElementById('gate');
+  var app = document.getElementById('app');
+  var gateForm = document.getElementById('gateForm');
+  var gateBtn = document.getElementById('gateBtn');
+  var gateErr = document.getElementById('gateErr');
+  var pass = document.getElementById('passcode');
+  var whoName = document.getElementById('whoName');
+  var lockBtn = document.getElementById('lockBtn');
+
+  var sendForm = document.getElementById('sendForm');
   var btn = document.getElementById('send');
   var out = document.getElementById('result');
-  var pass = document.getElementById('passcode');
-  var remember = document.getElementById('remember');
+  var phone = document.getElementById('phone');
   var statusEl = document.getElementById('status');
   var statusText = document.getElementById('statusText');
-  var smsOn = false;
 
+  var code = null;
+
+  function showErr(msg) { gateErr.textContent = msg; gateErr.className = 'err show'; }
+  function clearErr() { gateErr.textContent = ''; gateErr.className = 'err'; }
+
+  function unlock(staff, secret) {
+    code = secret;
+    whoName.textContent = staff || 'staff';
+    gate.hidden = true;
+    app.hidden = false;
+    try { sessionStorage.setItem(KEY, secret); } catch (e) {}
+    loadStatus();
+    document.getElementById('pname').focus();
+  }
+
+  function lock() {
+    code = null;
+    try { sessionStorage.removeItem(KEY); } catch (e) {}
+    app.hidden = true;
+    gate.hidden = false;
+    pass.value = '';
+    clearErr();
+    out.hidden = true;
+    document.getElementById('pname').value = '';
+    phone.value = '';
+    document.getElementById('email').value = '';
+    pass.focus();
+  }
+
+  function verify(secret, onFail) {
+    return fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'verify', passcode: secret })
+    }).then(function (r) {
+      return r.json().then(function (d) { return { status: r.status, data: d }; });
+    }).then(function (r) {
+      if (r.status === 200 && r.data.ok) { unlock(r.data.staff, secret); return true; }
+      if (onFail) onFail(r.data.error || 'Something went wrong.');
+      return false;
+    });
+  }
+
+  // Resume an unlocked session in this tab, but re-check with the server.
   try {
-    var saved = sessionStorage.getItem('triumph_staff_code');
-    if (saved) { pass.value = saved; }
+    var saved = sessionStorage.getItem(KEY);
+    if (saved) { verify(saved, function () { try { sessionStorage.removeItem(KEY); } catch (e) {} }); }
   } catch (e) {}
 
-  fetch(ENDPOINT).then(function (r) { return r.json(); }).then(function (s) {
-    smsOn = !!s.smsEnabled;
-    if (s.smsEnabled && s.emailEnabled) {
-      statusEl.className = 'status on';
-      statusText.textContent = 'Text and email are both live.';
-    } else if (s.emailEnabled) {
-      statusEl.className = 'status off';
-      statusText.innerHTML = '<strong>Email only right now.</strong> Texting stays off until the carrier registration is approved. Send the email and it will reach them the same way.';
-    } else {
-      statusEl.className = 'status off';
-      statusText.textContent = 'Nothing is configured yet. Check the Netlify environment variables.';
-    }
-  }).catch(function () {
-    statusText.textContent = 'Could not check status. Try sending anyway.';
+  gateForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var secret = pass.value.trim();
+    if (!secret) return;
+    clearErr();
+    gateBtn.disabled = true;
+    gateBtn.textContent = 'Checking…';
+    verify(secret, showErr)
+      .catch(function () { showErr('Could not reach the server. Check your connection.'); })
+      .then(function () { gateBtn.disabled = false; gateBtn.textContent = 'Continue'; });
   });
+
+  lockBtn.addEventListener('click', lock);
+
+  function loadStatus() {
+    fetch(ENDPOINT).then(function (r) { return r.json(); }).then(function (s) {
+      if (s.smsEnabled && s.emailEnabled) {
+        statusEl.className = 'status on';
+        statusText.textContent = 'Text and email are both live.';
+      } else if (s.emailEnabled) {
+        statusEl.className = 'status off';
+        statusText.innerHTML = '<strong>Email only right now.</strong> Texting stays off until the carrier registration is approved. Send the email and it will reach them the same way.';
+      } else {
+        statusEl.className = 'status off';
+        statusText.textContent = 'Nothing is configured yet. Check the Netlify environment variables.';
+      }
+    }).catch(function () {
+      statusText.textContent = 'Could not check status. Try sending anyway.';
+    });
+  }
 
   function fmtPhone(v) {
     var d = v.replace(/\D/g, '').slice(0, 10);
@@ -187,14 +283,13 @@
     if (d.length < 7) return '(' + d.slice(0, 3) + ') ' + d.slice(3);
     return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
   }
-  var phone = document.getElementById('phone');
   phone.addEventListener('input', function () { phone.value = fmtPhone(phone.value); });
 
-  form.addEventListener('submit', function (e) {
+  sendForm.addEventListener('submit', function (e) {
     e.preventDefault();
     var name = document.getElementById('pname').value.trim();
     var payload = {
-      passcode: pass.value.trim(),
+      passcode: code,
       phone: phone.value.replace(/\D/g, ''),
       email: document.getElementById('email').value.trim()
     };
@@ -202,11 +297,6 @@
       render(null, 'Enter a mobile number, an email address, or both.', name);
       return;
     }
-
-    try {
-      if (remember.checked) sessionStorage.setItem('triumph_staff_code', payload.passcode);
-      else sessionStorage.removeItem('triumph_staff_code');
-    } catch (e2) {}
 
     btn.disabled = true;
     btn.textContent = 'Sending…';
@@ -218,11 +308,9 @@
     })
       .then(function (r) { return r.json().then(function (d) { return { status: r.status, data: d }; }); })
       .then(function (r) {
-        if (r.status === 401 || r.status === 429 || r.status === 400) {
-          render(null, r.data.error || 'Something went wrong.', name);
-        } else {
-          render(r.data, null, name);
-        }
+        if (r.status === 401) { lock(); showErr('Your session expired. Sign in again.'); return; }
+        if (r.status === 429 || r.status === 400) { render(null, r.data.error || 'Something went wrong.', name); }
+        else { render(r.data, null, name); }
       })
       .catch(function () { render(null, 'Could not reach the server. Check your connection.', name); })
       .finally(function () { btn.disabled = false; btn.textContent = 'Send link'; });
@@ -243,7 +331,6 @@
       var html = '<h2>Result' + who + '</h2>';
       if (data.results.sms) html += line(data.results.sms.ok, data.results.sms.ok ? 'Text sent' : 'Text not sent', data.results.sms.reason || '');
       if (data.results.email) html += line(data.results.email.ok, data.results.email.ok ? 'Email sent' : 'Email not sent', data.results.email.reason || '');
-      if (data.staff) html += '<div class="who">Sent by ' + data.staff + '</div>';
       out.innerHTML = html;
     }
     out.innerHTML += '<button type="button" class="ghost" id="again">Send another</button>';
@@ -252,7 +339,7 @@
       phone.value = '';
       document.getElementById('email').value = '';
       out.hidden = true;
-      phone.focus();
+      document.getElementById('pname').focus();
     });
     out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }

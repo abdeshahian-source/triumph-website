@@ -286,6 +286,19 @@ exports.handler = async (event) => {
   }
 
   const staff = staffForCode(body.passcode);
+
+  // Password-only check for the staff page's sign-in screen. Sends nothing.
+  if (body.action === 'verify') {
+    if (!staff) {
+      noteFailure();
+      await new Promise((r) => setTimeout(r, 1200));
+      console.log('[intake-link] verify rejected');
+      return json(401, { error: 'That password is not recognized.' });
+    }
+    console.log('[intake-link] verify ok staff=%s', staff);
+    return json(200, { ok: true, staff });
+  }
+
   if (!staff) {
     noteFailure();
     // Slow down guessing. The password is shared and short, so this matters.
