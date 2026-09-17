@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Send Intake Link — Staff</title>
+<meta name="robots" content="noindex,nofollow,noarchive" />
+<meta name="theme-color" content="#0a0e1a" />
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@400;500;600;700&display=swap" />
+<style>
+  :root{
+    --bg:#0a0e1a; --panel:#161e33; --input:#0f1526; --navy:#071B3A;
+    --gold:#C9A24A; --gold-bright:#E0B756;
+    --text:#fff; --muted:#B0B7C5; --quiet:#6B7484;
+    --border:rgba(255,255,255,.10); --border-strong:rgba(255,255,255,.20);
+    --danger:#E85D5D; --success:#4CAF7C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh; display:flex; flex-direction:column; align-items:center;
+    padding:32px 16px 64px;
+  }
+  .wrap{width:100%;max-width:440px}
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+  .brand img{width:36px;height:36px}
+  .brand-name{font-family:'Cinzel',Georgia,serif;font-size:19px;letter-spacing:.10em;line-height:1}
+  .brand-sub{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  h1{font-size:24px;font-weight:700;letter-spacing:-.01em;margin:22px 0 6px}
+  .lede{color:var(--muted);font-size:14px;margin-bottom:22px}
+
+  .status{
+    display:flex;align-items:flex-start;gap:10px;
+    font-size:13px;padding:12px 14px;border-radius:10px;margin-bottom:22px;
+    border:1px solid var(--border);background:var(--panel);color:var(--muted);
+  }
+  .status.on{border-color:rgba(76,175,124,.45);background:rgba(76,175,124,.09)}
+  .status.off{border-color:rgba(201,162,74,.45);background:rgba(201,162,74,.09)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--quiet);margin-top:7px;flex:none}
+  .status.on .dot{background:var(--success)}
+  .status.off .dot{background:var(--gold)}
+
+  form{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px}
+  .field{margin-bottom:18px}
+  label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}
+  .hint{display:block;font-weight:400;color:var(--quiet);font-size:12px;margin-top:3px}
+  input{
+    width:100%;padding:13px 14px;font:inherit;font-size:16px;
+    background:var(--input);color:var(--text);
+    border:1px solid var(--border-strong);border-radius:8px;
+  }
+  input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,74,.18)}
+  input::placeholder{color:var(--quiet)}
+  .row{display:flex;gap:10px;align-items:center;margin:-6px 0 18px}
+  .row input[type=checkbox]{width:auto;flex:none}
+  .row label{margin:0;font-weight:400;font-size:13px;color:var(--muted)}
+
+  button{
+    width:100%;padding:15px;font:inherit;font-size:16px;font-weight:700;
+    background:var(--gold);color:var(--navy);border:0;border-radius:9px;cursor:pointer;
+    transition:background .15s;
+  }
+  button:hover:not(:disabled){background:var(--gold-bright)}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  button.ghost{background:transparent;color:var(--gold);border:1px solid var(--border-strong);margin-top:10px}
+  button.ghost:hover{background:rgba(255,255,255,.04)}
+
+  .result{margin-top:20px;padding:18px;border-radius:12px;border:1px solid var(--border);background:var(--panel)}
+  .result h2{font-size:15px;margin-bottom:12px;font-weight:700}
+  .line{display:flex;gap:9px;align-items:flex-start;font-size:14px;padding:7px 0}
+  .line .mark{flex:none;font-weight:700;width:16px;text-align:center}
+  .ok .mark{color:var(--success)} .bad .mark{color:var(--danger)}
+  .bad span{color:var(--muted)}
+  .who{font-size:12px;color:var(--quiet);margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+
+  .fine{margin-top:26px;font-size:12px;color:var(--quiet);line-height:1.7}
+  .fine strong{color:var(--muted)}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <img src="../assets/logo-icon.svg" alt="" />
+    <div>
+      <div class="brand-name">TRIUMPH</div>
+      <div class="brand-sub">Ortho &amp; Spine</div>
+    </div>
+  </div>
+
+  <h1>Send intake link</h1>
+  <p class="lede">Sends the patient a link to the new patient forms. Nothing else.</p>
+
+  <div class="status" id="status"><span class="dot"></span><span id="statusText">Checking what's turned on…</span></div>
+
+  <form id="form" autocomplete="off">
+    <div class="field">
+      <label for="passcode">Password</label>
+      <input id="passcode" name="passcode" type="password" required autocomplete="off" />
+    </div>
+    <div class="row">
+      <input type="checkbox" id="remember" checked />
+      <label for="remember">Remember until I close this tab</label>
+    </div>
+
+    <div class="field">
+      <label for="pname">Patient first name
+        <span class="hint">Optional. Stays on this screen so you can confirm you sent the right one. It is never texted, emailed, or stored.</span>
+      </label>
+      <input id="pname" type="text" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <label for="phone">Mobile number
+        <span class="hint">10 digits. Mobile only — landlines will fail.</span>
+      </label>
+      <input id="phone" type="tel" inputmode="tel" placeholder="(555) 123-4567" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <label for="email">Email address
+        <span class="hint">Optional. Fill in either or both.</span>
+      </label>
+      <input id="email" type="email" inputmode="email" placeholder="patient@example.com" autocomplete="off" />
+    </div>
+
+    <button type="submit" id="send">Send link</button>
+  </form>
+
+  <div id="result" hidden></div>
+
+  <p class="fine">
+    <strong>What the patient receives.</strong> A fixed message with a link to
+    triumphorthospine.com/patient-portal and our phone number. No name, no
+    appointment details, no clinical information. The wording cannot be changed
+    from this screen.<br /><br />
+    Do not use this to send anything else. If a patient replies to the text,
+    answer them by phone — not by text.
+  </p>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var ENDPOINT = '/.netlify/functions/send-intake-link';
+  var form = document.getElementById('form');
+  var btn = document.getElementById('send');
+  var out = document.getElementById('result');
+  var pass = document.getElementById('passcode');
+  var remember = document.getElementById('remember');
+  var statusEl = document.getElementById('status');
+  var statusText = document.getElementById('statusText');
+  var smsOn = false;
+
+  try {
+    var saved = sessionStorage.getItem('triumph_staff_code');
+    if (saved) { pass.value = saved; }
+  } catch (e) {}
+
+  fetch(ENDPOINT).then(function (r) { return r.json(); }).then(function (s) {
+    smsOn = !!s.smsEnabled;
+    if (s.smsEnabled && s.emailEnabled) {
+      statusEl.className = 'status on';
+      statusText.textContent = 'Text and email are both live.';
+    } else if (s.emailEnabled) {
+      statusEl.className = 'status off';
+      statusText.innerHTML = '<strong>Email only right now.</strong> Texting stays off until the carrier registration is approved. Send the email and it will reach them the same way.';
+    } else {
+      statusEl.className = 'status off';
+      statusText.textContent = 'Nothing is configured yet. Check the Netlify environment variables.';
+    }
+  }).catch(function () {
+    statusText.textContent = 'Could not check status. Try sending anyway.';
+  });
+
+  function fmtPhone(v) {
+    var d = v.replace(/\D/g, '').slice(0, 10);
+    if (d.length < 4) return d;
+    if (d.length < 7) return '(' + d.slice(0, 3) + ') ' + d.slice(3);
+    return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+  }
+  var phone = document.getElementById('phone');
+  phone.addEventListener('input', function () { phone.value = fmtPhone(phone.value); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('pname').value.trim();
+    var payload = {
+      passcode: pass.value.trim(),
+      phone: phone.value.replace(/\D/g, ''),
+      email: document.getElementById('email').value.trim()
+    };
+    if (!payload.phone && !payload.email) {
+      render(null, 'Enter a mobile number, an email address, or both.', name);
+      return;
+    }
+
+    try {
+      if (remember.checked) sessionStorage.setItem('triumph_staff_code', payload.passcode);
+      else sessionStorage.removeItem('triumph_staff_code');
+    } catch (e2) {}
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().then(function (d) { return { status: r.status, data: d }; }); })
+      .then(function (r) {
+        if (r.status === 401 || r.status === 429 || r.status === 400) {
+          render(null, r.data.error || 'Something went wrong.', name);
+        } else {
+          render(r.data, null, name);
+        }
+      })
+      .catch(function () { render(null, 'Could not reach the server. Check your connection.', name); })
+      .finally(function () { btn.disabled = false; btn.textContent = 'Send link'; });
+  });
+
+  function line(ok, label, detail) {
+    return '<div class="line ' + (ok ? 'ok' : 'bad') + '">' +
+      '<span class="mark">' + (ok ? '✓' : '✕') + '</span>' +
+      '<span><strong>' + label + '</strong>' + (detail ? ' — ' + detail : '') + '</span></div>';
+  }
+
+  function render(data, errorMsg, name) {
+    out.hidden = false;
+    var who = name ? ' for ' + name.replace(/[<>&]/g, '') : '';
+    if (errorMsg) {
+      out.innerHTML = '<h2>Not sent' + who + '</h2>' + line(false, errorMsg);
+    } else {
+      var html = '<h2>Result' + who + '</h2>';
+      if (data.results.sms) html += line(data.results.sms.ok, data.results.sms.ok ? 'Text sent' : 'Text not sent', data.results.sms.reason || '');
+      if (data.results.email) html += line(data.results.email.ok, data.results.email.ok ? 'Email sent' : 'Email not sent', data.results.email.reason || '');
+      if (data.staff) html += '<div class="who">Sent by ' + data.staff + '</div>';
+      out.innerHTML = html;
+    }
+    out.innerHTML += '<button type="button" class="ghost" id="again">Send another</button>';
+    document.getElementById('again').addEventListener('click', function () {
+      document.getElementById('pname').value = '';
+      phone.value = '';
+      document.getElementById('email').value = '';
+      out.hidden = true;
+      phone.focus();
+    });
+    out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+})();
+</script>
+</body>
+</html>

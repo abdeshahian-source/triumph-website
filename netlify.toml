@@ -59,6 +59,20 @@
   [headers.values]
     Cache-Control = "no-store"
 
+# Internal staff tool — never index, never cache.
+[[headers]]
+  for = "/staff/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    Cache-Control = "no-store"
+
+# Patient portal — never index.
+[[headers]]
+  for = "/patient-portal/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
+
 # 404 fallback
 [[redirects]]
   from = "/*"
