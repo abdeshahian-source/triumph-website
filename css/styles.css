@@ -1004,3 +1004,12 @@ section { position: relative; }
 @media (max-width: 560px) {
   .capabilities, .locations { grid-template-columns: 1fr; }
 }
+
+/* Internal staff tool link — visually subordinate to the patient nav. */
+.main-nav__link--staff {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.main-nav__link--staff:hover { opacity: 1; }
