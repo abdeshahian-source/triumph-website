@@ -990,3 +990,22 @@ button { font-family: inherit; cursor: pointer; }
   .review-list__label { max-width: 100%; }
   .pain-scale__btn { min-height: 36px; font-size: 12px; }
 }
+
+/* Upload processing state (image decode + re-encode) */
+.upload-zone.is-busy {
+  opacity: .6;
+  pointer-events: none;
+  position: relative;
+}
+.upload-zone.is-busy::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 22px; height: 22px;
+  margin: -11px 0 0 -11px;
+  border: 2px solid rgba(10,14,26,.2);
+  border-top-color: rgba(10,14,26,.75);
+  border-radius: 50%;
+  animation: uploadSpin .7s linear infinite;
+}
+@keyframes uploadSpin { to { transform: rotate(360deg); } }
