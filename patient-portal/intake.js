@@ -26,6 +26,7 @@
     totalSteps: 6,
     data: {},
     uploads: {},          // key -> { dataUrl, name, size, type }
+    uploadsSkipped: false, // true when a prior save hit the storage quota
     signature: null,      // dataURL of signature canvas
     reasonType: null,
     paymentType: null,
@@ -204,6 +205,15 @@
 
     // Restore upload previews
     Object.entries(state.uploads).forEach(([key, meta]) => renderUpload(key, meta));
+
+    // A previous session hit the storage limit and dropped the files. Say so,
+    // rather than letting the patient assume their documents are still attached.
+    if (state.uploadsSkipped) {
+      state.uploadsSkipped = false;
+      setTimeout(() => {
+        alert('Your answers were saved, but the documents you uploaded last time could not be. Please re-attach your photo ID and insurance card before submitting.');
+      }, 400);
+    }
 
     // Restore signature preview (drawn later in initSignature)
   }
@@ -427,32 +437,167 @@
 
   // ============================================================
   // FILE UPLOAD → base64 data URL (never transmitted)
+  //
+  // Images are re-encoded to JPEG on a canvas before storage. This does
+  // three necessary things:
+  //   1. Converts HEIC (the iPhone default) to a format browsers can
+  //      display and jsPDF can embed. Previously HEIC produced a blank
+  //      thumbnail and was silently dropped from the PDF.
+  //   2. Shrinks a 3-6 MB phone photo to ~200-400 KB, so all three
+  //      uploads fit inside the ~5 MB localStorage budget.
+  //   3. Strips EXIF (including GPS coordinates) as a side effect.
   // ============================================================
+  // Step down through these until the encoded result fits IMG_TARGET_CHARS.
+  // Worst case (photographic noise) lands ~850 KB; a real ID photo is far less.
+  const IMG_DIM_STEPS = [1600, 1400, 1200, 1000];
+  const IMG_QUALITY_STEPS = [0.82, 0.70, 0.60, 0.50];
+  const IMG_TARGET_CHARS = 900 * 1024;  // per file, so 3 files stay ~half of quota
+  const PDF_MAX_BYTES = 3 * 1024 * 1024;
+  const FILE_MAX_BYTES = 25 * 1024 * 1024;
+
   function handleUpload(input) {
     const file = input.files[0];
     if (!file) return;
     const key = input.dataset.uploadInput;
 
-    // 10 MB cap
-    if (file.size > 10 * 1024 * 1024) {
-      alert('File is larger than 10 MB. Please choose a smaller file.');
-      input.value = '';
+    const type = file.type || '';
+    const isPdf = type === 'application/pdf' || /\.pdf$/i.test(file.name);
+    const isImage = type.startsWith('image/') || /\.(jpe?g|png|heic|heif|webp|gif|bmp)$/i.test(file.name);
+
+    if (!isPdf && !isImage) {
+      failUpload(key, input, 'That file type isn’t supported. Please upload a photo (JPG, PNG or HEIC) or a PDF.');
+      return;
+    }
+
+    if (file.size > FILE_MAX_BYTES) {
+      failUpload(key, input, 'That file is very large. Please choose a file under 25 MB.');
+      return;
+    }
+
+    busyUpload(key, true);
+
+    if (isImage) {
+      downscaleImage(file)
+        .then(dataUrl => {
+          storeUpload(key, {
+            dataUrl,
+            name: file.name,
+            size: approxBytes(dataUrl),
+            type: 'image/jpeg',
+          });
+        })
+        .catch(() => {
+          failUpload(key, input,
+            'We couldn’t read that image. If you’re on an iPhone, open Settings › Camera › Formats and choose "Most Compatible", then retake the photo — or upload a JPG or PNG instead.');
+        })
+        .then(() => busyUpload(key, false));
+      return;
+    }
+
+    // PDF path - stored as-is, so it has to stay small.
+    if (file.size > PDF_MAX_BYTES) {
+      busyUpload(key, false);
+      failUpload(key, input, 'That PDF is larger than 3 MB. Please upload a smaller PDF, or take a photo of the document instead.');
       return;
     }
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      const meta = {
+      busyUpload(key, false);
+      storeUpload(key, {
         dataUrl: e.target.result,
         name: file.name,
         size: file.size,
-        type: file.type,
-      };
-      state.uploads[key] = meta;
-      renderUpload(key, meta);
-      saveProgress();
+        type: 'application/pdf',
+      });
+    };
+    reader.onerror = () => {
+      busyUpload(key, false);
+      failUpload(key, input, 'We couldn’t read that file. Please try again, or choose a different file.');
     };
     reader.readAsDataURL(file);
+  }
+
+  // Decode → draw to canvas → re-encode as JPEG.
+  function downscaleImage(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        try {
+          const ow = img.naturalWidth || img.width;
+          const oh = img.naturalHeight || img.height;
+          if (!ow || !oh) return reject(new Error('zero dimensions'));
+
+          let last = null;
+          for (const dim of IMG_DIM_STEPS) {
+            const scale = Math.min(1, dim / Math.max(ow, oh));
+            const w = Math.max(1, Math.round(ow * scale));
+            const h = Math.max(1, Math.round(oh * scale));
+
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            // White matte so transparent PNGs don't render black in the PDF.
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(img, 0, 0, w, h);
+
+            for (const q of IMG_QUALITY_STEPS) {
+              const out = canvas.toDataURL('image/jpeg', q);
+              if (!out || out.length < 200) return reject(new Error('encode failed'));
+              last = out;
+              if (out.length <= IMG_TARGET_CHARS) return resolve(out);
+            }
+          }
+          // Nothing hit the target - hand back the smallest we produced.
+          if (!last) return reject(new Error('encode failed'));
+          resolve(last);
+        } catch (e) {
+          reject(e);
+        }
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error('decode failed'));
+      };
+      img.src = url;
+    });
+  }
+
+  function storeUpload(key, meta) {
+    state.uploads[key] = meta;
+    renderUpload(key, meta);
+    if (!saveProgress()) {
+      alert('Your file was added, but this device is low on storage so it can’t be saved for later. Please finish and submit the form in this session without closing the page.');
+    }
+  }
+
+  function failUpload(key, input, message) {
+    if (input) input.value = '';
+    busyUpload(key, false);
+    alert(message);
+  }
+
+  function busyUpload(key, on) {
+    const zone = $(`[data-upload="${key}"]`);
+    if (zone) zone.classList.toggle('is-busy', !!on);
+    const nameEl = $(`[data-upload-name="${key}"]`);
+    const preview = $(`[data-upload-preview="${key}"]`);
+    if (on && nameEl && preview) {
+      nameEl.textContent = 'Processing…';
+      preview.classList.add('has-file');
+    }
+  }
+
+  // base64 payload → approximate decoded byte count
+  function approxBytes(dataUrl) {
+    const i = dataUrl.indexOf(',');
+    const b64 = i >= 0 ? dataUrl.slice(i + 1) : dataUrl;
+    const pad = b64.endsWith('==') ? 2 : b64.endsWith('=') ? 1 : 0;
+    return Math.max(0, Math.floor(b64.length * 3 / 4) - pad);
   }
 
   function renderUpload(key, meta) {
@@ -461,14 +606,17 @@
     const nameEl = $(`[data-upload-name="${key}"]`);
     const sizeEl = $(`[data-upload-size="${key}"]`);
     if (!preview) return;
-    if (meta.type && meta.type.startsWith('image/')) {
-      thumb.src = meta.dataUrl;
-      thumb.style.display = 'block';
-    } else {
-      thumb.style.display = 'none';
+    if (thumb) {
+      if (meta.type && meta.type.startsWith('image/')) {
+        thumb.src = meta.dataUrl;
+        thumb.style.display = 'block';
+      } else {
+        thumb.removeAttribute('src');
+        thumb.style.display = 'none';
+      }
     }
-    nameEl.textContent = meta.name;
-    sizeEl.textContent = formatBytes(meta.size);
+    if (nameEl) nameEl.textContent = meta.name;
+    if (sizeEl) sizeEl.textContent = formatBytes(meta.size);
     preview.classList.add('has-file');
   }
 
@@ -608,8 +756,11 @@
       };
       localStorage.setItem(LS_KEY, JSON.stringify(payload));
       if (showIndicator) flashSaveIndicator();
+      return true;
     } catch (err) {
-      // Quota exceeded (large images can hit this). Save without uploads as fallback.
+      // Quota exceeded. Fall back to saving everything except the uploads,
+      // so the typed answers survive - but report the failure to the caller
+      // so the patient can be told their files won't persist.
       try {
         localStorage.setItem(LS_KEY, JSON.stringify({
           data: state.data,
@@ -618,6 +769,7 @@
           uploadsSkipped: true,
         }));
       } catch (e) { /* silent */ }
+      return false;
     }
   }
 
@@ -629,6 +781,7 @@
       if (payload.data) state.data = payload.data;
       if (payload.uploads) state.uploads = payload.uploads;
       if (payload.signature) state.signature = payload.signature;
+      if (payload.uploadsSkipped) state.uploadsSkipped = true;
     } catch (e) { /* silent */ }
   }
 
