@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Uplekh Purewal, MD — Interventional Pain Medicine | Triumph Ortho &amp; Spine</title>
+  <meta name="description" content="Uplekh Purewal, MD — founder and CEO of Triumph Ortho &amp; Spine. Board certified in Pain Medicine and Anesthesiology, dual fellowship trained at the University of Pennsylvania." />
+  <meta name="theme-color" content="#0a0e1a" />
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/android-chrome-192x192.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Uplekh Purewal, MD — Triumph Ortho &amp; Spine" />
+  <meta property="og:description" content="Precision orthopedic, interventional spine, and pain medicine across New Jersey, Pennsylvania, and Florida." />
+  <meta property="og:image" content="https://triumphorthospine.com/assets/og-share-card.png" />
+  <meta property="og:url" content="https://triumphorthospine.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://triumphorthospine.com/assets/og-share-card.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    /* ---------- physician profile ---------- */
+    .bio-hero{background:var(--bg-navy);color:var(--text-on-navy);padding:var(--sp-9) var(--sp-5);}
+    .bio-hero__inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:340px 1fr;
+      gap:var(--sp-8);align-items:center;}
+    .bio-hero__portrait{position:relative;}
+    .bio-hero__portrait img{width:100%;height:auto;display:block;border-radius:var(--radius-lg);
+      box-shadow:var(--shadow-lg);}
+    .bio-hero__portrait::after{content:"";position:absolute;inset:auto -14px -14px auto;width:58%;height:58%;
+      border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);
+      border-bottom-right-radius:var(--radius-lg);pointer-events:none;}
+    .bio-hero__text h1{font-family:'Cinzel',serif;font-size:clamp(30px,4vw,46px);line-height:1.12;
+      color:#fff;margin:var(--sp-2) 0 var(--sp-2);}
+    .bio-hero__cred{color:var(--gold);font-size:.62em;letter-spacing:2px;}
+    .bio-hero .eyebrow{color:var(--gold);}
+    .bio-hero__role{font-family:'Montserrat',sans-serif;letter-spacing:2.5px;text-transform:uppercase;
+      font-size:12px;color:rgba(245,239,225,.72);margin-bottom:var(--sp-5);}
+    .bio-certs{list-style:none;margin:0 0 var(--sp-6);padding:0;}
+    .bio-certs li{position:relative;padding-left:22px;margin-bottom:var(--sp-3);font-size:15px;
+      color:rgba(245,239,225,.9);}
+    .bio-certs li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;
+      border:2px solid var(--gold);transform:rotate(45deg);}
+    .bio-hero__ctas{display:flex;flex-wrap:wrap;gap:var(--sp-3);}
+
+    .bio-split{background:var(--bg-elevated);padding:var(--sp-9) var(--sp-5);}
+    .bio-split__inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.35fr 1fr;
+      gap:var(--sp-8);align-items:start;}
+    .bio-split__body h2{font-family:'Cinzel',serif;font-size:clamp(23px,2.6vw,32px);
+      margin:var(--sp-2) 0 var(--sp-5);color:var(--navy);}
+    .bio-split__body p{margin-bottom:var(--sp-4);color:var(--text-secondary);}
+    .bio-split__figure{margin:0;position:relative;}
+    .bio-split__figure img{width:100%;height:auto;display:block;border-radius:var(--radius-lg);
+      box-shadow:var(--shadow-md);}
+    .bio-split__figure figcaption{margin-top:var(--sp-4);padding-left:var(--sp-4);
+      border-left:3px solid var(--gold);font-style:italic;color:var(--text-tertiary);font-size:15px;line-height:1.6;}
+
+    .bio-creds{background:var(--bg-panel);padding:var(--sp-9) var(--sp-5);}
+    .bio-creds h2{font-family:'Cinzel',serif;color:var(--navy);}
+    .bio-creds__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--sp-5);
+      max-width:1080px;margin:0 auto;}
+    .bio-card{background:var(--bg-elevated);border:1px solid var(--border-subtle);
+      border-top:3px solid var(--gold);border-radius:var(--radius-md);padding:var(--sp-6);
+      box-shadow:var(--shadow-sm);}
+    .bio-card h3{font-family:'Cinzel',serif;font-size:16px;letter-spacing:.5px;color:var(--navy);
+      margin-bottom:var(--sp-4);}
+    .bio-list{list-style:none;margin:0;padding:0;}
+    .bio-list li{margin-bottom:var(--sp-4);}
+    .bio-list li:last-child{margin-bottom:0;}
+    .bio-list strong{display:block;font-size:15px;color:var(--text-primary);font-weight:600;}
+    .bio-list span{display:block;font-size:13.5px;color:var(--text-tertiary);margin-top:2px;}
+
+    .bio-procs{background:var(--bg-elevated);padding:var(--sp-9) var(--sp-5);}
+    .bio-procs h2{font-family:'Cinzel',serif;color:var(--navy);}
+    .bio-procs__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:var(--sp-5);
+      max-width:1080px;margin:0 auto;}
+    .bio-proc{background:var(--bg);border:1px solid var(--border-subtle);border-radius:var(--radius-md);
+      padding:var(--sp-5) var(--sp-6);}
+    .bio-proc h4{font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:2px;
+      font-size:11.5px;color:var(--gold);margin-bottom:var(--sp-4);}
+    .bio-proc ul{list-style:none;margin:0;padding:0;}
+    .bio-proc li{font-size:14.5px;color:var(--text-secondary);padding:6px 0 6px 16px;position:relative;
+      border-bottom:1px solid var(--border-subtle);}
+    .bio-proc li:last-child{border-bottom:0;}
+    .bio-proc li::before{content:"";position:absolute;left:0;top:14px;width:5px;height:5px;
+      background:var(--gold);border-radius:50%;}
+
+    .bio-strip{background:var(--bg-navy);color:var(--text-on-navy);padding:var(--sp-8) var(--sp-5);}
+    .bio-strip__inner{max-width:1080px;margin:0 auto;display:grid;
+      grid-template-columns:1.4fr 1fr;gap:var(--sp-8);}
+    .bio-strip h3{font-family:'Cinzel',serif;font-size:15px;letter-spacing:1px;color:var(--gold);
+      margin-bottom:var(--sp-3);}
+    .bio-strip p{color:rgba(245,239,225,.82);font-size:14.5px;line-height:1.85;margin:0;}
+
+    @media (max-width:860px){
+      .bio-hero__inner{grid-template-columns:1fr;gap:var(--sp-6);}
+      .bio-hero__portrait{max-width:280px;}
+      .bio-split__inner,.bio-strip__inner{grid-template-columns:1fr;}
+      .bio-split__figure{max-width:340px;margin:0 auto;}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="../index.html" aria-label="Triumph Ortho & Spine — Home">
+        <div class="brand-text">
+          <div class="brand-text__main">TRIUMPH</div>
+          <div class="brand-text__sub">ORTHO &amp; SPINE</div>
+        </div>
+      </a>
+      <button class="nav-toggle" data-nav-toggle aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav"><span class="nav-toggle__bars"><span></span><span></span><span></span></span></button>
+      <nav class="main-nav" id="primary-nav" data-nav aria-label="Primary">
+        <ul class="main-nav__list">
+          <li><a class="main-nav__link" href="../index.html">Home</a></li>
+          <li><a class="main-nav__link" href="../about/index.html" aria-current="page">About</a></li>
+          <li><a class="main-nav__link" href="../services/index.html">Services</a></li>
+          <li><a class="main-nav__link" href="../patients/index.html">Patients</a></li>
+          <li><a class="main-nav__link" href="../contact/index.html">Contact</a></li>
+          <li><a class="main-nav__link main-nav__link--staff" href="/staff/">Staff</a></li>
+          <li><a class="btn btn-primary" href="../contact/schedule.html">Schedule</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <div class="breadcrumb__inner">
+        <a href="../index.html">Home</a><span class="breadcrumb__sep">›</span>
+        <a href="../about/index.html">About</a><span class="breadcrumb__sep">›</span>
+        <a href="../about/doctors.html">Our Physicians</a><span class="breadcrumb__sep">›</span>
+        <span>Uplekh Purewal, MD</span>
+      </div>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <section class="bio-hero">
+      <div class="bio-hero__inner">
+        <div class="bio-hero__portrait">
+          <img src="../assets/dr-purewal-suit.jpg"
+               alt="Uplekh Purewal, MD — interventional pain medicine physician, Triumph Ortho &amp; Spine"
+               width="820" height="1024" />
+        </div>
+        <div class="bio-hero__text">
+          <div class="eyebrow">Founder &amp; Chief Executive Officer</div>
+          <h1>Uplekh Purewal, <span class="bio-hero__cred">MD</span></h1>
+          <p class="bio-hero__role">Interventional Pain Medicine &amp; Anesthesiology</p>
+          <ul class="bio-certs">
+            <li>Board Certified — Pain Medicine, American Board of Anesthesiology</li>
+            <li>Board Certified — Anesthesiology, American Board of Anesthesiology</li>
+            <li>Dual Fellowship Trained — University of Pennsylvania Health System</li>
+          </ul>
+          <div class="bio-hero__ctas">
+            <a class="btn btn-primary" href="../contact/schedule.html">Schedule a Consultation</a>
+            <a class="btn btn-outline" href="tel:+18772157246">Call 1-877-215-PAIN</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PHILOSOPHY / SECOND PORTRAIT ============ -->
+    <section class="bio-split">
+      <div class="bio-split__inner">
+        <div class="bio-split__body">
+          <div class="eyebrow">Approach to Care</div>
+          <h2>Find the source. Choose the least invasive option that works.</h2>
+          <p class="lead">
+            Dr. Purewal founded Triumph Ortho &amp; Spine on a straightforward premise: pain deserves a
+            diagnosis, not a prescription pad. Every treatment plan begins with identifying the specific
+            structure generating the pain — then selecting the least invasive intervention capable of
+            resolving it.
+          </p>
+          <p>
+            That philosophy shapes how he sequences care. Diagnostic blocks confirm the pain generator
+            before any definitive procedure is performed. Image-guided injections and radiofrequency
+            ablation are used to interrupt pain at its source. For patients with persistent neuropathic
+            pain who have exhausted conservative options, he evaluates neuromodulation — spinal cord and
+            dorsal root ganglion stimulation — earlier in the pathway than has been traditional, citing
+            long-term outcomes data that favors intervening before pain becomes entrenched.
+          </p>
+          <p>
+            His training spans both sides of the operating room. Residency in anesthesiology at Tufts
+            Medical Center and a cardiothoracic anesthesiology fellowship at Penn gave him a deep
+            grounding in physiology, airway and hemodynamic management, and procedural safety. A second
+            Penn fellowship in pain medicine focused that foundation on the interventional spine and
+            peripheral nerve work he practices today.
+          </p>
+        </div>
+        <figure class="bio-split__figure">
+          <img src="../assets/dr-purewal-coat.jpg"
+               alt="Uplekh Purewal, MD, Founder and CEO of Triumph Ortho &amp; Spine"
+               width="1000" height="1249" loading="lazy" />
+          <figcaption>
+            “Restoring mobility, relieving pain, rebuilding lives — that is the whole
+            job. Everything else is detail.”
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ PROCEDURES ============ -->
+    <section class="bio-procs">
+      <div class="container">
+        <div class="eyebrow" style="text-align:center;">Clinical Focus</div>
+        <h2 style="text-align:center; margin-bottom: var(--sp-4);">Procedures &amp; Interventions</h2>
+        <p class="lead" style="text-align:center; max-width:720px; margin:0 auto var(--sp-8);">
+          Image-guided, diagnosis-first interventional pain management for the spine, joints, and
+          peripheral nerves.
+        </p>
+
+        <div class="bio-procs__grid">
+          <div class="bio-proc">
+            <h4>Spine</h4>
+            <ul>
+              <li>Cervical &amp; lumbar epidural steroid injections</li>
+              <li>Facet joint injections &amp; medial branch blocks</li>
+              <li>Radiofrequency ablation (facet denervation)</li>
+              <li>Sacroiliac joint injections</li>
+              <li>Selective spinal nerve root blocks</li>
+            </ul>
+          </div>
+          <div class="bio-proc">
+            <h4>Neuromodulation</h4>
+            <ul>
+              <li>Spinal cord stimulation — trial &amp; implant</li>
+              <li>Dorsal root ganglion (DRG) stimulation</li>
+              <li>Percutaneous electrode placement</li>
+              <li>Pulse generator implantation</li>
+            </ul>
+          </div>
+          <div class="bio-proc">
+            <h4>Joint &amp; Nerve</h4>
+            <ul>
+              <li>Large &amp; small joint injections</li>
+              <li>Lumbar sympathetic blocks</li>
+              <li>Peripheral nerve blocks</li>
+              <li>Trigger point injections</li>
+            </ul>
+          </div>
+          <div class="bio-proc">
+            <h4>Regenerative</h4>
+            <ul>
+              <li>Platelet-rich plasma (PRP)</li>
+              <li>Cell-based regenerative therapies</li>
+              <li>Musculoskeletal ultrasound guidance</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONDITIONS + AFFILIATIONS ============ -->
+    <section class="bio-strip">
+      <div class="bio-strip__inner">
+        <div>
+          <h3>Conditions Treated</h3>
+          <p>
+            Chronic low back and neck pain · Sciatica and radiculopathy · Spinal stenosis ·
+            Degenerative disc disease · Failed back surgery syndrome · Complex regional pain
+            syndrome · Diabetic and post-herpetic neuropathy · Facet arthropathy ·
+            Sacroiliac joint dysfunction · Work and auto injuries · Joint arthritis
+          </p>
+        </div>
+        <div>
+          <h3>Professional Memberships</h3>
+          <p>
+            American Society of Anesthesiologists · International Spine Intervention Society ·
+            American Medical Association
+          </p>
+          <h3 style="margin-top: var(--sp-6);">National Provider Identifier</h3>
+          <p>NPI 1548203839</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <h2>You. Restored.</h2>
+      <p>Whatever the source of your pain or limitation — we're here to help you move forward.</p>
+      <div class="cta-band__buttons">
+        <a class="btn btn-primary" href="../contact/schedule.html">Schedule a Consultation</a>
+        <a class="btn btn-outline" href="tel:+18772157246">Call 1-877-215-PAIN</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="site-footer__grid">
+      <div class="footer-col">
+        <img class="footer-brand__logo" src="../assets/logo.svg" alt="Triumph Ortho &amp; Spine" />
+        <p>Lawrence Township, NJ · Wilkes-Barre, PA · Levittown, PA · Miami, FL<br />1-877-215-PAIN<br />Fax: (877) 706-1872<br /><a href="mailto:info@triumphorthospine.com">info@triumphorthospine.com</a></p>
+        <p class="footer-tagline">Restoring Mobility. Relieving Pain. Rebuilding Lives.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="../services/pain-management.html">Pain Management</a></li><li><a href="../services/spine-care.html">Spine Care</a></li><li><a href="../services/joint-care.html">Joint Care</a></li><li><a href="../services/sports-injury.html">Sports Injury</a></li></ul></div>
+      <div class="footer-col"><h4>For Patients</h4><ul><li><a href="../patients/new-patient-forms.html">New Patient Forms</a></li><li><a href="../patients/what-to-expect.html">What to Expect</a></li><li><a href="../patients/insurance.html">Insurance &amp; Payment</a></li><li><a href="../patients/portal.html">Patient Portal</a></li></ul></div>
+      <div class="footer-col"><h4>Practice</h4><ul><li><a href="../about/index.html">About Us</a></li><li><a href="../about/doctors.html">Our Physicians</a></li><li><a href="../about/approach.html">Our Approach</a></li><li><a href="../contact/index.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-current-year>2026</span> Triumph Ortho &amp; Spine, LLC. All rights reserved.</span>
+      <span><a href="../legal/privacy.html">Privacy</a> · <a href="../legal/hipaa.html">HIPAA Notice</a> · <a href="../legal/terms.html">Terms</a> · <a href="../legal/accessibility.html">Accessibility</a> &middot; <a href="/staff/">Staff</a></span>
+      <div class="footer-bottom__banner">Expert Care · Advanced Solutions · Lasting Results</div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

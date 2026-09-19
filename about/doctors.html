@@ -23,6 +23,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .doc-card{display:grid;grid-template-columns:260px 1fr;gap:var(--sp-7);align-items:center;
+      background:var(--bg);border:1px solid var(--border-subtle);border-left:3px solid var(--gold);
+      border-radius:var(--radius-lg);padding:var(--sp-6);text-decoration:none;color:inherit;
+      box-shadow:var(--shadow-sm);transition:box-shadow 200ms ease, transform 200ms ease;}
+    .doc-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px);}
+    .doc-card img{width:100%;height:auto;display:block;border-radius:var(--radius-md);box-shadow:var(--shadow-md);}
+    .doc-card h2{font-family:'Cinzel',serif;color:var(--navy);margin:var(--sp-2) 0 var(--sp-1);font-size:26px;}
+    .doc-card__role{font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:2px;
+      font-size:11.5px;color:var(--text-tertiary);margin-bottom:var(--sp-4);}
+    .doc-card p{color:var(--text-secondary);font-size:15px;margin-bottom:var(--sp-4);}
+    .doc-card__link{font-weight:600;color:var(--gold);font-size:14.5px;letter-spacing:.3px;}
+    @media (max-width:760px){ .doc-card{grid-template-columns:1fr;} .doc-card img{max-width:240px;margin:0 auto;} }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -68,20 +82,22 @@
       </div>
     </nav>
 
-    <section style="background: var(--color-white);">
-      <div class="container" style="max-width: 720px; padding-top: var(--sp-10); padding-bottom: var(--sp-10); text-align: center;">
-        <div style="background: var(--color-ivory-warm); border: 1px solid var(--color-border); border-left: 3px solid var(--color-gold); border-radius: var(--radius-md); padding: var(--sp-10) var(--sp-7);">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-gold); margin: 0 auto var(--sp-4);"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <h2 style="margin-bottom: var(--sp-3);">Physician Profiles Coming Soon</h2>
-          <p class="lead" style="margin: 0 auto var(--sp-5);">
-            Detailed profiles for our physicians — including credentials, training, conditions treated,
-            and approach to care — will be published here shortly.
-          </p>
-          <p style="color: var(--color-slate); font-size: var(--fs-sm);">
-            In the meantime, you can <a href="../contact/schedule.html">request a consultation</a> or
-            <a href="tel:+18772157246">call 1-877-215-PAIN</a> with any questions.
-          </p>
-        </div>
+    <section style="background: var(--bg-elevated); padding: var(--sp-9) var(--sp-5);">
+      <div style="max-width: 880px; margin: 0 auto;">
+        <a class="doc-card" href="dr-uplekh-purewal.html">
+          <img src="../assets/dr-purewal-suit.jpg" alt="Uplekh Purewal, MD" width="820" height="1024" />
+          <div class="doc-card__body">
+            <div class="eyebrow">Founder &amp; Chief Executive Officer</div>
+            <h2>Uplekh Purewal, MD</h2>
+            <p class="doc-card__role">Interventional Pain Medicine &amp; Anesthesiology</p>
+            <p>
+              Board certified in Pain Medicine and Anesthesiology by the American Board of
+              Anesthesiology. Dual fellowship trained at the University of Pennsylvania Health System
+              in pain medicine and cardiothoracic anesthesiology.
+            </p>
+            <span class="doc-card__link">View full profile &rarr;</span>
+          </div>
+        </a>
       </div>
     </section>
 
