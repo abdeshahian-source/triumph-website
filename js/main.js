@@ -37,10 +37,11 @@
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* ---- Footer locations -----------------------------------------------
-     The 90 static pages were generated before Narberth opened, so their
-     footers still list four locations (Narberth, Clifton and Trevose were
-     added later). Patch the line at runtime until the HTML is regenerated.
-     Safe no-op on pages already listing a given location. */
+     The 90 static pages were generated before Narberth and Trevose opened,
+     so their footers still list the older set. Patch the line at runtime
+     until the HTML is regenerated. Clifton is a mailing address, not a
+     clinic, so it is deliberately NOT injected here — it appears only on
+     the homepage. Safe no-op on pages already listing a given location. */
   (function patchFooterLocations() {
     var nodes = document.querySelectorAll('.site-footer p, .footer-col p');
     for (var i = 0; i < nodes.length; i++) {
@@ -50,11 +51,8 @@
       if (html.indexOf('Narberth') === -1) {
         html = html.replace('Miami, FL', 'Miami, FL &middot; Narberth, PA');
       }
-      if (html.indexOf('Clifton') === -1) {
-        html = html.replace('Narberth, PA', 'Narberth, PA &middot; Clifton, NJ');
-      }
       if (html.indexOf('Trevose') === -1) {
-        html = html.replace('Clifton, NJ', 'Clifton, NJ &middot; Trevose, PA');
+        html = html.replace('Narberth, PA', 'Narberth, PA &middot; Trevose, PA');
       }
       el.innerHTML = html;
     }
