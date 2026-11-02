@@ -15,7 +15,10 @@
   // them to info@triumphorthospine.com. Runs inside Triumph's Google
   // Workspace (BAA-covered). See apps-script/Code.gs.
   // Leave empty ("") to disable auto-send and use manual email only.
-  const APPS_SCRIPT_URL = "";
+  // Google Apps Script web app running inside the Triumph Workspace. The PDF is
+  // posted straight here from the browser so patient information never passes
+  // through a third-party server on its way to info@triumphorthospine.com.
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6Q-aHFa7u1zEJXlH6R2u3r-7oUH69yIC1HjOr5ttLx568ZVXnevpO_pYnZEH9A9RS/exec";
 
   // ============================================================
   // STATE
@@ -1234,6 +1237,7 @@
     if (APPS_SCRIPT_URL) {
       const pdfBase64 = doc.output('datauristring').split(',')[1];
       autoSend({
+        action: 'intakePdf',
         patientName: patientName,
         patientDob:  d.dob || '',
         patientPhone: d.phone || '',
