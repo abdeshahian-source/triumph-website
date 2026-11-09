@@ -95,6 +95,13 @@
 
   .fine{margin-top:26px;font-size:12px;color:var(--quiet);line-height:1.7}
   .fine strong{color:var(--muted)}
+  .billing{margin-top:30px}
+  .billing h2{font-size:18px;font-weight:700;margin-bottom:4px}
+  .billing .lede{margin-bottom:14px}
+  .blink{display:block;text-decoration:none;color:var(--text);background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:10px;transition:border-color .15s}
+  .blink:hover{border-color:var(--gold)}
+  .blink b{display:block;font-size:15px;color:var(--gold)}
+  .blink span{display:block;font-size:13px;color:var(--muted);margin-top:3px}
   [hidden]{display:none !important}
 </style>
 </head>
@@ -162,6 +169,13 @@
     </form>
 
     <div id="result" hidden></div>
+
+    <div class="billing">
+      <h2>Teamsters billing</h2>
+      <p class="lede">Opens the billing portal. Sign in with your @triumphorthospine.com Google account.</p>
+      <a class="blink" href="https://script.google.com/a/macros/triumphorthospine.com/s/AKfycbycBt_z09BWOWoyz581HONbPbhvQIMi_lRRMw2Wcnh1GmHJhDWxv_cXBNech3dF5wH-/exec" target="_blank" rel="noopener"><b>Upload procedure note for billing &rarr;</b><span>Physicians. Drag in the op or visit note; the claim fills itself in.</span></a>
+      <a class="blink" href="https://script.google.com/a/macros/triumphorthospine.com/s/AKfycbycBt_z09BWOWoyz581HONbPbhvQIMi_lRRMw2Wcnh1GmHJhDWxv_cXBNech3dF5wH-/exec" target="_blank" rel="noopener"><b>Patient info for billing &rarr;</b><span>Front desk. Fill in missing patient and insurance details.</span></a>
+    </div>
 
     <p class="fine">
       <strong>What the patient receives.</strong> A fixed message with a link to
