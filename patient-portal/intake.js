@@ -1,8 +1,9 @@
 /* ============================================================
    TRIUMPH PATIENT PORTAL — intake.js
-   Client-side-only intake with conditional branching, image
+   Client-side intake with conditional branching, image
    embedding, canvas signature, and PDF generation via jsPDF.
-   No PHI is transmitted from this page.
+   On submit, the PDF is posted to Triumph's Google Workspace
+   Apps Script (BAA-covered), which delivers it to info@.
    ============================================================ */
 
 (function () {
@@ -1225,8 +1226,8 @@
     const fname = `Triumph_Intake_${safe(d.lastName)}_${safe(d.firstName)}_${new Date().toISOString().slice(0, 10)}.pdf`;
     doc.save(fname);
 
-    // Show email helper (manual fallback ALWAYS available)
-    $('#postDownload').style.display = 'block';
+    // Email fallback is shown only when the secure auto-send is unavailable or fails
+    if (!APPS_SCRIPT_URL) $('#postDownload').style.display = 'block';
     const subject = encodeURIComponent(`New Patient Intake — ${patientName}`);
     const body = encodeURIComponent(
       `Hello Triumph team,\n\nPlease find attached my completed new-patient intake form.\n\nName: ${patientName}\nDOB: ${d.dob || ''}\nPhone: ${d.phone || ''}\n\nThank you.`
@@ -1280,10 +1281,11 @@
       })
       .catch(err => {
         console.warn('Auto-send failed:', err);
+        $('#postDownload').style.display = 'block';
         statusEl.className = 'autosend autosend--fail';
         statusEl.innerHTML =
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
-          '<div><strong>Auto-send didn\'t go through.</strong> No worries — please tap <em>Open email to send</em> below and attach the PDF that just downloaded.</div>';
+          '<div><strong>Auto-send didn\'t go through.</strong> Please tap <em>Email it instead</em> below and attach the PDF that just downloaded, or call 1-877-215-PAIN.</div>';
       });
   }
 
