@@ -1,0 +1,11 @@
+# Legacy URL redirects (processed before netlify.toml rules, so the /* 404 catch-all can't shadow them)
+/legal/hipaa-notice/   /legal/hipaa     301!
+/legal/hipaa-notice    /legal/hipaa     301!
+/locations/*           https://triumphorthospine.com/locations/   301
+/conditions            /services/       301!
+/conditions/*          /services/       301!
+/insurance             /services/       301!
+/new-patients          /contact/        301!
+/privacy               /legal/privacy   301!
+/terms                 /legal/terms     301!
+/teamsters             /                301!
