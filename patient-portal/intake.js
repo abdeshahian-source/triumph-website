@@ -468,8 +468,14 @@
     const isPdf = type === 'application/pdf' || /\.pdf$/i.test(file.name);
     const isImage = type.startsWith('image/') || /\.(jpe?g|png|heic|heif|webp|gif|bmp)$/i.test(file.name);
 
-    if (!isPdf && !isImage) {
-      failUpload(key, input, 'That file type isn’t supported. Please upload a photo (JPG, PNG or HEIC) or a PDF.');
+    // PDF uploads used to be accepted but could not be embedded in the intake
+    // PDF, so they never reached Triumph. Photos only.
+    if (isPdf && !isImage) {
+      failUpload(key, input, 'Please upload a photo of the card instead of a PDF. On a phone, tap here to open your camera.');
+      return;
+    }
+    if (!isImage) {
+      failUpload(key, input, 'That file type isn’t supported. Please upload a photo (JPG, PNG or HEIC).');
       return;
     }
 
@@ -783,7 +789,12 @@
       if (!raw) return;
       const payload = JSON.parse(raw);
       if (payload.data) state.data = payload.data;
-      if (payload.uploads) state.uploads = payload.uploads;
+      if (payload.uploads) {
+        // Drop PDFs saved by the old version; they cannot reach Triumph.
+        Object.entries(payload.uploads).forEach(([k, m]) => {
+          if (m && typeof m.dataUrl === 'string' && m.dataUrl.startsWith('data:image/')) state.uploads[k] = m;
+        });
+      }
       if (payload.signature) state.signature = payload.signature;
       if (payload.uploadsSkipped) state.uploadsSkipped = true;
     } catch (e) { /* silent */ }
@@ -928,6 +939,8 @@
   // PDF GENERATION
   // ============================================================
   function generatePdf() {
+    const btn = $('#downloadPdf');
+    if (btn && btn.disabled) return;
     try {
       _generatePdf();
     } catch (err) {
@@ -1224,17 +1237,8 @@
     // Filename
     const safe = (s) => (s || 'patient').replace(/[^\w\-]/g, '_');
     const fname = `Triumph_Intake_${safe(d.lastName)}_${safe(d.firstName)}_${new Date().toISOString().slice(0, 10)}.pdf`;
-    doc.save(fname);
-
-    // Email fallback is shown only when the secure auto-send is unavailable or fails
-    if (!APPS_SCRIPT_URL) $('#postDownload').style.display = 'block';
-    const subject = encodeURIComponent(`New Patient Intake — ${patientName}`);
-    const body = encodeURIComponent(
-      `Hello Triumph team,\n\nPlease find attached my completed new-patient intake form.\n\nName: ${patientName}\nDOB: ${d.dob || ''}\nPhone: ${d.phone || ''}\n\nThank you.`
-    );
-    $('#emailLink').href = `mailto:info@triumphorthospine.com?subject=${subject}&body=${body}`;
-
-    // Auto-send to Triumph via Apps Script webhook (if configured)
+    // Send to Triumph FIRST. Saving can throw or (in some in-app browsers)
+    // navigate away from the page, which used to cancel the send silently.
     if (APPS_SCRIPT_URL) {
       const pdfBase64 = doc.output('datauristring').split(',')[1];
       autoSend({
@@ -1247,6 +1251,20 @@
         pdfBase64: pdfBase64,
       });
     }
+
+    try {
+      doc.save(fname);
+    } catch (e) {
+      console.warn('Patient copy download failed:', e);
+    }
+
+    // Email fallback is shown only when the secure auto-send is unavailable or fails
+    if (!APPS_SCRIPT_URL) $('#postDownload').style.display = 'block';
+    const subject = encodeURIComponent(`New Patient Intake — ${patientName}`);
+    const body = encodeURIComponent(
+      `Hello Triumph team,\n\nPlease find attached my completed new-patient intake form.\n\nName: ${patientName}\nDOB: ${d.dob || ''}\nPhone: ${d.phone || ''}\n\nThank you.`
+    );
+    $('#emailLink').href = `mailto:info@triumphorthospine.com?subject=${subject}&body=${body}`;
   }
 
   // ============================================================
@@ -1261,13 +1279,20 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" class="autosend__spin"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>' +
       '<span>Sending your intake to Triumph&hellip;</span>';
 
+    const btn = $('#downloadPdf');
+    if (btn) btn.disabled = true;
+    const ctrl = ('AbortController' in window) ? new AbortController() : null;
+    const timer = ctrl ? setTimeout(() => ctrl.abort(), 90000) : null;
+
     // Use text/plain to avoid CORS preflight; Apps Script parses JSON server-side
     fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       mode: 'cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload),
+      signal: ctrl ? ctrl.signal : undefined,
     })
+      .finally(() => { if (timer) clearTimeout(timer); })
       .then(r => r.json().catch(() => ({ ok: false, error: 'Bad response' })))
       .then(data => {
         if (data && data.ok) {
@@ -1281,6 +1306,7 @@
       })
       .catch(err => {
         console.warn('Auto-send failed:', err);
+        if (btn) btn.disabled = false;
         $('#postDownload').style.display = 'block';
         statusEl.className = 'autosend autosend--fail';
         statusEl.innerHTML =
