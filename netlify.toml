@@ -22,7 +22,9 @@
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     # CSP intentionally permissive for v1 (Google Fonts). Tighten before production launch.
     # cdnjs.cloudflare.com allowlisted for jsPDF used by the patient portal.
-    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+    # script.google.com (+ its googleusercontent redirect) allowlisted so the intake
+    # form can deliver the PDF to info@ via the Triumph Apps Script relay.
+    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
 
 # Long-cache static assets, short-cache HTML so edits propagate fast.
 [[headers]]
