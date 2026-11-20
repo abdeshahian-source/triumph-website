@@ -306,14 +306,15 @@
         </div>
 
         <div class="form-section">
-          <h2 class="form-section__title">Photo ID</h2>
+          <h2 class="form-section__title">Photo ID <span class="req-mark">(required)</span></h2>
           <p class="form-section__desc">Driver's license, passport, or state-issued ID. We use this to confirm your identity at check-in.</p>
-          <label class="upload-zone" data-upload="photoId">
+          <label class="upload-zone" data-upload="photoId" data-required-upload="photoId">
             <svg class="upload-zone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
             <div class="upload-zone__title">Take a photo or upload your ID</div>
             <div class="upload-zone__desc">Tap on mobile to open your camera · photo (JPG, PNG or HEIC)</div>
             <input type="file" name="photoId" accept="image/*" data-upload-input="photoId" />
           </label>
+          <div class="upload-error" data-upload-error="photoId">Required: please add a photo before continuing.</div>
           <div class="upload-preview" data-upload-preview="photoId">
             <img class="upload-preview__thumb" data-upload-thumb="photoId" alt="" />
             <div class="upload-preview__info">
@@ -352,8 +353,9 @@
             <h2 class="form-section__title">Primary insurance</h2>
             <div class="field-row field-row--two">
               <div class="field">
-                <label class="field__label" for="ins1Carrier">Insurance company</label>
-                <input type="text" id="ins1Carrier" name="ins1Carrier" placeholder="Aetna, BCBS, Cigna, etc." />
+                <label class="field__label field__label--required" for="ins1Carrier">Insurance company</label>
+                <input type="text" id="ins1Carrier" name="ins1Carrier" placeholder="Aetna, BCBS, Cigna, etc." required />
+                <div class="field__error">Required</div>
               </div>
               <div class="field">
                 <label class="field__label" for="ins1PlanName">Plan name</label>
@@ -362,21 +364,23 @@
             </div>
             <div class="field-row field-row--two">
               <div class="field">
-                <label class="field__label" for="ins1Member">Member / Policy ID</label>
-                <input type="text" id="ins1Member" name="ins1Member" />
+                <label class="field__label field__label--required" for="ins1Member">Member / Policy ID</label>
+                <input type="text" id="ins1Member" name="ins1Member" required />
+                <div class="field__error">Required</div>
               </div>
               <div class="field">
-                <label class="field__label" for="ins1Group">Group #</label>
+                <label class="field__label" for="ins1Group">Group # (if on your card)</label>
                 <input type="text" id="ins1Group" name="ins1Group" />
               </div>
             </div>
             <div class="field-row field-row--two">
               <div class="field">
-                <label class="field__label" for="ins1Subscriber">Subscriber name (if not you)</label>
-                <input type="text" id="ins1Subscriber" name="ins1Subscriber" />
+                <label class="field__label field__label--required" for="ins1Subscriber">Policyholder name</label>
+                <input type="text" id="ins1Subscriber" name="ins1Subscriber" placeholder="Your name if the plan is in your name" required />
+                <div class="field__error">Required</div>
               </div>
               <div class="field">
-                <label class="field__label" for="ins1SubscriberRel">Relationship to subscriber</label>
+                <label class="field__label field__label--required" for="ins1SubscriberRel">Your relationship to policyholder</label>
                 <select id="ins1SubscriberRel" name="ins1SubscriberRel">
                   <option value="self">Self</option>
                   <option value="spouse">Spouse</option>
@@ -388,14 +392,15 @@
           </div>
 
           <div class="form-section">
-            <h2 class="form-section__title">Insurance card — front</h2>
-            <label class="upload-zone" data-upload="insFront">
+            <h2 class="form-section__title">Insurance card — front <span class="req-mark">(required)</span></h2>
+            <label class="upload-zone" data-upload="insFront" data-required-upload="insFront">
               <svg class="upload-zone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
               <div class="upload-zone__title">Front of your insurance card</div>
               <div class="upload-zone__desc">Tap on mobile to open your camera</div>
               <input type="file" name="insFront" accept="image/*" data-upload-input="insFront" />
             </label>
-            <div class="upload-preview" data-upload-preview="insFront">
+            <div class="upload-error" data-upload-error="insFront">Required: please add a photo before continuing.</div>
+          <div class="upload-preview" data-upload-preview="insFront">
               <img class="upload-preview__thumb" data-upload-thumb="insFront" alt="" />
               <div class="upload-preview__info">
                 <div class="upload-preview__name" data-upload-name="insFront"></div>
@@ -406,14 +411,15 @@
           </div>
 
           <div class="form-section">
-            <h2 class="form-section__title">Insurance card — back</h2>
-            <label class="upload-zone" data-upload="insBack">
+            <h2 class="form-section__title">Insurance card — back <span class="req-mark">(required)</span></h2>
+            <label class="upload-zone" data-upload="insBack" data-required-upload="insBack">
               <svg class="upload-zone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="14" x2="23" y2="14"/></svg>
               <div class="upload-zone__title">Back of your insurance card</div>
               <div class="upload-zone__desc">The side with the customer-service phone number</div>
               <input type="file" name="insBack" accept="image/*" data-upload-input="insBack" />
             </label>
-            <div class="upload-preview" data-upload-preview="insBack">
+            <div class="upload-error" data-upload-error="insBack">Required: please add a photo before continuing.</div>
+          <div class="upload-preview" data-upload-preview="insBack">
               <img class="upload-preview__thumb" data-upload-thumb="insBack" alt="" />
               <div class="upload-preview__info">
                 <div class="upload-preview__name" data-upload-name="insBack"></div>

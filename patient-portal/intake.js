@@ -402,6 +402,23 @@
       }
     });
 
+    // Required photo uploads (photo ID always; insurance card front/back when paying by insurance)
+    $$('[data-required-upload]', panel).forEach(zone => {
+      const cond = zone.closest('.conditional');
+      if (cond && !cond.classList.contains('show')) return;
+      const key = zone.dataset.requiredUpload;
+      const err = $(`[data-upload-error="${key}"]`);
+      if (!state.uploads[key]) {
+        ok = false;
+        zone.classList.add('has-error');
+        if (err) err.classList.add('show');
+        if (!firstBad) firstBad = zone;
+      } else {
+        zone.classList.remove('has-error');
+        if (err) err.classList.remove('show');
+      }
+    });
+
     // Step 4: pain score required
     if (num === 4) {
       if (!state.data.painScore) {
@@ -611,6 +628,10 @@
   }
 
   function renderUpload(key, meta) {
+    const reqZone = $(`[data-required-upload="${key}"]`);
+    if (reqZone) reqZone.classList.remove('has-error');
+    const reqErr = $(`[data-upload-error="${key}"]`);
+    if (reqErr) reqErr.classList.remove('show');
     const preview = $(`[data-upload-preview="${key}"]`);
     const thumb = $(`[data-upload-thumb="${key}"]`);
     const nameEl = $(`[data-upload-name="${key}"]`);
@@ -938,9 +959,26 @@
   // ============================================================
   // PDF GENERATION
   // ============================================================
+  // Re-check every step the patient filled in before submitting. A saved form
+  // that is resumed can land on the last step without passing earlier checks.
+  function validateAllSteps() {
+    for (let n = 1; n < state.totalSteps; n++) {
+      if (shouldSkip(n)) continue;
+      updateConditionals();
+      if (!validateStep(n)) {
+        showStep(n);
+        setTimeout(() => validateStep(n), 350);
+        alert('Some required information is missing. Please complete the highlighted items, then continue to submit.');
+        return false;
+      }
+    }
+    return true;
+  }
+
   function generatePdf() {
     const btn = $('#downloadPdf');
     if (btn && btn.disabled) return;
+    if (!validateAllSteps()) return;
     try {
       _generatePdf();
     } catch (err) {
